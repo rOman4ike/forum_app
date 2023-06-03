@@ -6,9 +6,6 @@
 import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import initVueApp from "@/main.js"
-
-initVueApp()
 
 Rails.start()
 ActiveStorage.start()
