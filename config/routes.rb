@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
   root "spa#index"
   get "/*path", to: "spa#index", format: false
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  namespace :api do
+    namepsace :v1 do
+
+      resources :users, only: [:create, :destroy, :show] do
+        collection do
+          get :search
+        end
+      end
+
+    end
+  end
 end
