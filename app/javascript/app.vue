@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <p>{{ testTS(message) }}</p>
+    <the-header></the-header>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script lang='ts'>
-
+import TheHeader from 'common/components/TheHeader.vue'
 
 export default {
   data: function () {
@@ -17,6 +20,9 @@ export default {
     testTS(message: string): string {
       return message + "heheh"
     }
+  },
+  components: {
+    TheHeader
   }
 }
 </script>
