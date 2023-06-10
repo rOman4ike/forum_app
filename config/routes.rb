@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "/*path", to: "spa#index", format: false
 
   namespace :api do
-    namepsace :v1 do
+    namespace :v1 do
 
       resources :users, only: [:create, :destroy, :show] do
         collection do
