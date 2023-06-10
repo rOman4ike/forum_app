@@ -20,7 +20,6 @@ gem 'petrovich'
 gem 'russian'
 gem 'whenever', require: false
 gem 'aasm'
-gem 'simple_form'
 gem 'paranoia'
 gem 'sunspot_rails'
 gem 'sunspot_solr'

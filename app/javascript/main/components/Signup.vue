@@ -8,11 +8,18 @@
             Signup
           </div>
           <div class="card-body">
-            <form @submit.prevent="sendSignupForm()">
+            <form @submit.prevent="sendSignupForm({
+              user: {
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                password_confirmation: user.password_confirmation
+              }
+            })">
               <div class="mb-3">
                 <label for="email">Email</label>
                 <input class="form-control"
-                  v-model="email"
+                  v-model="user.email"
                   type="email"
                   id="email"
                 >
@@ -20,7 +27,7 @@
               <div class="mb-3">
                 <label for="name">Name</label>
                 <input class="form-control"
-                  v-model="name"
+                  v-model="user.name"
                   type="text"
                   id="name"
                 >
@@ -28,7 +35,7 @@
               <div class="mb-3">
                 <label for="password">Password</label>
                 <input class="form-control"
-                  v-model="password"
+                  v-model="user.password"
                   type="password"
                   id="password"
                 >
@@ -36,7 +43,7 @@
               <div class="mb-3">
                 <label for="repeat-password">Repeat Password</label>
                 <input class="form-control"
-                  v-model="repeatPassword"
+                  v-model="user.password_confirmation"
                   type="password"
                   id="repeat-password"
                 >
@@ -52,31 +59,31 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { defineComponent, reactive } from 'vue'
+import Vue from 'vue'
 
-export default {
-  setup() {
-    const email = ref('')
-    const name = ref('')
-    const password = ref('')
-    const repeatPassword = ref('')
+export default defineComponent({
+  setup(props, context) {
+    const user = reactive({
+      email: '',
+      name: '',
+      password: '',
+      password_confirmation: '',
+    })
 
-    function sendSignupForm(): void {
-      console.log(email.value);
-      console.log(name.value);
-      console.log(password.value);
-      console.log(repeatPassword.value);
+    function sendSignupForm(params) {
+      Vue.http.post("/api/v1/users", params)
+        .then(response => {
+          console.log(response);
+        })
     }
 
     return {
-      email,
-      name,
-      password,
-      repeatPassword,
+      user,
       sendSignupForm
     }
   }
-}
+})
 </script>
 
 <style>

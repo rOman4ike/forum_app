@@ -4,10 +4,10 @@
       <div class="users-list-inner">
 
         <ul class="list-group">
-          <li class="list-group-item">
+          <li class="list-group-item" v-for="user in users" :key="user.id">
             <div>
-              <router-link :to="'user/1'">
-                asdf
+              <router-link :to="'/user/' + user.id">
+                {{ user.name }}
               </router-link>
             </div>
           </li>
@@ -19,9 +19,23 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, onBeforeMount, ref } from "vue"
+import Vue from 'vue'
 
-}
+export default defineComponent({
+  setup() {
+    const users = ref([])
+    onBeforeMount(() => {
+      Vue.http.get('/api/v1/users/search').then(data => {
+        users.value = data.body
+      })
+    })
+
+    return {
+      users
+    }
+  },
+})
 </script>
 
 <style>
