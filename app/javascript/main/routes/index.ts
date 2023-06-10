@@ -1,8 +1,7 @@
-import Main from "../components/Main.vue"
-import Login from "../components/Login.vue"
-import Signup from "../components/Signup.vue"
-import UsersList from "../components/UsersList.vue"
-
+import Main from "main/components/Main.vue"
+import Login from "main/components/Login.vue"
+import Signup from "main/components/Signup.vue"
+import UsersList from "main/components/UsersList.vue"
 
 export const routes = [
   { path: '/', name: 'main', component: Main },

@@ -1,8 +1,8 @@
+import { createStore } from "vuex"
 import { userStore } from "./user"
-import Vuex from 'vuex'
 
-export default {
+export default createStore({
   modules: {
     user: {namespaced: true, ...userStore}
   }
-}
+})

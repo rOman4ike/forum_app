@@ -1,9 +1,10 @@
 import Vue from "vue"
+import User from "main/types/user"
 
 export const userStore = {
   state: {
-    user: {},
-    users: [],
+    user: {} as User,
+    users: [] as Array<User>,
     errors: [],
   },
   mutations: {

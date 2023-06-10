@@ -10,16 +10,16 @@
           <div class="card-body">
             <form @submit.prevent="sendSignupForm({
               user: {
-                name: user.name,
-                email: user.email,
-                password: user.password,
-                password_confirmation: user.password_confirmation
+                name,
+                email,
+                password,
+                password_confirmation
               }
             })">
               <div class="mb-3">
                 <label for="email">Email</label>
                 <input class="form-control"
-                  v-model="user.email"
+                  v-model="email"
                   type="email"
                   id="email"
                 >
@@ -27,7 +27,7 @@
               <div class="mb-3">
                 <label for="name">Name</label>
                 <input class="form-control"
-                  v-model="user.name"
+                  v-model="name"
                   type="text"
                   id="name"
                 >
@@ -35,7 +35,7 @@
               <div class="mb-3">
                 <label for="password">Password</label>
                 <input class="form-control"
-                  v-model="user.password"
+                  v-model="password"
                   type="password"
                   id="password"
                 >
@@ -43,7 +43,7 @@
               <div class="mb-3">
                 <label for="repeat-password">Repeat Password</label>
                 <input class="form-control"
-                  v-model="user.password_confirmation"
+                  v-model="password_confirmation"
                   type="password"
                   id="repeat-password"
                 >
@@ -58,18 +58,27 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive } from 'vue'
 import Vue from 'vue'
+import store from 'main/store/base'
+import User from 'main/types/user'
+// import router from 'main/routes/index'
 
 export default defineComponent({
   setup(props, context) {
-    const user = reactive({
+    console.log(store);
+    const user = reactive<User>({
       email: '',
       name: '',
       password: '',
       password_confirmation: '',
     })
+
+    // ПРИМЕРЫ
+    // router.push('/')
+    // const note = computed(() => store.state.currentNote)
+    // const age = ref<number | string>(23)
 
     function sendSignupForm(params) {
       Vue.http.post("/api/v1/users", params)
@@ -79,10 +88,12 @@ export default defineComponent({
     }
 
     return {
-      user,
+      ...user,
       sendSignupForm
     }
-  }
+  },
+  // Вызывается каждый раз, когда юзер покидает страницу компонента
+  // beforeRouteLeave(to, from, next) {}
 })
 </script>
 
