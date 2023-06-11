@@ -16,7 +16,7 @@ export const userStore = {
         return data
       })
     },
-    getUsers({ commit, state }, params) {
+    getUsers({ commit, state }) {
       Vue.http.get('/api/v1/users/search').then(data => {
         return data
       })

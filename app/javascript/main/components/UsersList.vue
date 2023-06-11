@@ -25,6 +25,7 @@ import Vue from 'vue'
 export default defineComponent({
   setup() {
     const users = ref([])
+
     onBeforeMount(() => {
       Vue.http.get('/api/v1/users/search').then(data => {
         users.value = data.body
@@ -32,7 +33,7 @@ export default defineComponent({
     })
 
     return {
-      users
+      users,
     }
   },
 })

@@ -61,13 +61,11 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 import Vue from 'vue'
-import store from 'main/store/base'
 import User from 'main/types/user'
 // import router from 'main/routes/index'
 
 export default defineComponent({
   setup(props, context) {
-    console.log(store);
     const user = reactive<User>({
       email: '',
       name: '',
@@ -81,10 +79,9 @@ export default defineComponent({
     // const age = ref<number | string>(23)
 
     function sendSignupForm(params) {
-      Vue.http.post("/api/v1/users", params)
-        .then(response => {
-          console.log(response);
-        })
+      Vue.http.post("/api/v1/users", params).then(response => {
+        console.log(response);
+      })
     }
 
     return {

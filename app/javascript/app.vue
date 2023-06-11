@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <the-header></the-header>
-    <div class="container">
-      <router-view></router-view>
-    </div>
+    <the-alert></the-alert>
+    <router-view></router-view>
   </div>
 </template>
 
 <script lang='ts'>
 import TheHeader from 'common/components/TheHeader.vue'
+import TheAlert from 'common/components/TheAlert.vue'
 
 export default {
   data: function () {
@@ -22,7 +22,13 @@ export default {
     }
   },
   components: {
-    TheHeader
+    TheHeader,
+    TheAlert
+  },
+  errorCaptured(err, component, info) {
+    console.log(err);
+    console.log(component);
+    console.log(info);
   }
 }
 </script>
