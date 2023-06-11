@@ -12,13 +12,24 @@ export const userStore = {
   },
   actions: {
     createUser({ commit, state }, params) {
-      Vue.http.post('/api/v1/users', params).then(data => {
-        return data
+      return new Promise((resolve, reject) => {
+        Vue.http.post('/api/v1/users', params).then(data => {
+          resolve(data)
+        })
       })
     },
     getUsers({ commit, state }) {
-      Vue.http.get('/api/v1/users/search').then(data => {
-        return data
+      return new Promise((resolve, reject) => {
+        Vue.http.get('/api/v1/users/search').then(data => {
+          resolve(data)
+        })
+      })
+    },
+    destroyUser({ commit, state }, params) {
+      return new Promise((resolve, reject) => {
+        Vue.http.delete('/api/v1/users/' + params.id).then(data => {
+          resolve(data)
+        })
       })
     }
   }

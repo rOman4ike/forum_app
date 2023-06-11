@@ -3,10 +3,8 @@
     <div class="container">
       <div class="signup-inner">
 
+        <h1 class="mb-3">Signup</h1>
         <div class="card mt-5">
-          <div class="card-header">
-            Signup
-          </div>
           <div class="card-body">
             <form @submit.prevent="sendSignupForm({
               user: {
@@ -62,6 +60,7 @@
 import { defineComponent, reactive } from 'vue'
 import Vue from 'vue'
 import User from 'main/types/user'
+import store from 'main/store/base'
 // import router from 'main/routes/index'
 
 export default defineComponent({
@@ -79,8 +78,15 @@ export default defineComponent({
     // const age = ref<number | string>(23)
 
     function sendSignupForm(params) {
-      Vue.http.post("/api/v1/users", params).then(response => {
-        console.log(response);
+      store.dispatch('user/createUser', params).then(data => {
+        console.log(data);
+        if (data.ok) {
+          store.commit('notice/setNotice', {
+            title: "Success",
+            text: 'asdfdsf',
+            type: 'success'
+          })
+        }
       })
     }
 

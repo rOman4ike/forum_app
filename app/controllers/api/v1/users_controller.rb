@@ -4,13 +4,14 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      UserNotifierMailer.send_signup_email(@user).deliver
-    end
+    @user.save
+    # if @user.save
+      # UserNotifierMailer.send_signup_email(@user).deliver
+    # end
   end
 
   def destroy
-    @ser = User.find(params[:id])
+    @user = User.find(params[:id])
     @user.destroy
   end
 

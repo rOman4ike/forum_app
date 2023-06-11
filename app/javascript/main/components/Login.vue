@@ -3,10 +3,8 @@
     <div class="container">
       <div class="login-inner">
 
+        <h1 class="mb-3">Login</h1>
         <div class="card mt-5">
-          <div class="card-header">
-            Login
-          </div>
           <div class="card-body">
             <form @submit.prevent="sendLoginForm()">
               <div class="mb-3">

@@ -5,7 +5,6 @@ import Vuex from 'vuex'
 import App from '../app.vue'
 import { routes } from 'main/routes'
 import baseStore from 'main/store/base'
-import errorHandler from 'handlers/error'
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
@@ -14,7 +13,8 @@ Vue.use(VueResource)
 // Обработка 404
 Vue.http.interceptors.push((request, next) => {
   next(responce => {
-    if (responce.status === 404) {
+    const statusList: number[] = [404, 500]
+    if (statusList.includes(responce.status)) {
       baseStore.commit('notice/setNotice', {
         title: "Ошибка",
         text: 'Ошибка емое',
