@@ -41,6 +41,7 @@ export default defineComponent({
       })
     })
 
+    // Придумать как проинициализировать этот метод (один раз) и использовать его везде
     function destroyUser(params, idx) {
       if (confirm("Are you sure?")) {
         store.dispatch('user/destroyUser', params).then(data => {

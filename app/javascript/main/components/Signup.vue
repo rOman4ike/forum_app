@@ -4,7 +4,7 @@
       <div class="signup-inner">
 
         <h1 class="mb-3">Signup</h1>
-        <div class="card mt-5">
+        <div class="card">
           <div class="card-body">
             <form @submit.prevent="sendSignupForm({
               user: {

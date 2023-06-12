@@ -4,7 +4,7 @@
       <div class="login-inner">
 
         <h1 class="mb-3">Login</h1>
-        <div class="card mt-5">
+        <div class="card">
           <div class="card-body">
             <form @submit.prevent="sendLoginForm()">
               <div class="mb-3">
@@ -43,8 +43,9 @@
 
 <script>
 import { ref } from 'vue'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   setup() {
     const email = ref('')
     const password = ref('')
@@ -63,7 +64,7 @@ export default {
       sendLoginForm,
     }
   }
-}
+})
 </script>
 
 <style>

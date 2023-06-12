@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import Vuex from 'vuex'
 import App from '../app.vue'
-import { routes } from 'main/routes'
+import { router } from 'main/routes'
 import baseStore from 'main/store/base'
 
 Vue.use(Vuex)
@@ -25,13 +25,6 @@ Vue.http.interceptors.push((request, next) => {
 })
 
 document.addEventListener('DOMContentLoaded', () => {
-  const router = new VueRouter({
-    routes,
-  })
-  router.onError((error) => {
-    console.log(error);
-  })
-
   const store = new Vuex.Store(baseStore)
 
   const app = new Vue({

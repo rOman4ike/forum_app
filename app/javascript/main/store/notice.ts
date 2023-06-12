@@ -12,5 +12,5 @@ export const noticeStore = {
     setNotice(state, noticeInfo) {
       Vue.set(state, 'notice', noticeInfo)
     }
-  }
+  },
 }

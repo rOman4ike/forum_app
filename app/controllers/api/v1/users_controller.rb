@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   def show
+    @user = User.find(params[:id])
   end
 
   def create
@@ -13,6 +14,15 @@ class Api::V1::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update(user_edit_update)
   end
 
   def search
@@ -32,5 +42,9 @@ class Api::V1::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :name, :password, :password_confirmation)
+  end
+
+  def user_edit_update
+    params.require(:user).permit(:id, :email, :name)
   end
 end

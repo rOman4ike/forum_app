@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      resources :users, only: [:show, :create, :destroy] do
+      resources :users, only: [:show, :create, :destroy, :update, :edit] do
         collection do
           get :search
-          get :user_activations
+          get :user_activations # поправить на activate
         end
       end
 
