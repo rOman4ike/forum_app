@@ -79,7 +79,7 @@ export default defineComponent({
     }
 
     function changeUser() {
-      router.push({ path: `/user/${route.params.id}/edit`, params: { test: 'asf' }})
+      router.push({ path: `/user/${route.params.id}/edit`})
     }
 
     return {

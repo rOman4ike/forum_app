@@ -16,7 +16,7 @@
             </div>
             <div class="actions">
               <button class="btn btn-danger" @click="destroyUser({id: user.id}, idx)">Destroy</button>
-              <button class="btn btn-info" @click="changeUser()">Change</button>
+              <button class="btn btn-info" @click="changeUser(user.id)">Change</button>
             </div>
           </li>
         </ul>
@@ -28,8 +28,8 @@
 
 <script>
 import { defineComponent, onBeforeMount, ref } from "vue"
-import Vue from 'vue'
 import store from 'main/store/base'
+import { router } from 'main/routes/index'
 
 export default defineComponent({
   setup() {
@@ -58,8 +58,8 @@ export default defineComponent({
       }
     }
 
-    function changeUser() {
-
+    function changeUser(id) {
+      router.push({ path: `/user/${id}/edit` })
     }
 
     return {
