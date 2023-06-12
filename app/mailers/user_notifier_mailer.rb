@@ -6,4 +6,12 @@ class UserNotifierMailer < ApplicationMailer
       :subject => 'Thanks for signing up for our amazing app'
     )
   end
+
+  def send_messages(user, comment)
+    @user = user
+    @comment = comment
+    mail( :to => @user.email,
+      :subject => 'This message has been sent to all!'
+    )
+  end
 end

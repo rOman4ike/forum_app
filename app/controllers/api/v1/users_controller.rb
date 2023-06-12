@@ -38,6 +38,14 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def send_messages
+    @user = User.all.uniq(&:email)
+    comment = 'test message'
+    @user.each do |user|
+      UserNotifierMailer.send_messages(user, comment).deliver_later
+    end
+  end
+
   private
 
   def user_params

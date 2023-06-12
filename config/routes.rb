@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         collection do
           get :search
           get :user_activations # поправить на activate
+          post :send_messages
         end
       end
 
