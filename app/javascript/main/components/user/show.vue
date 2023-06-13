@@ -1,43 +1,31 @@
 <template>
-  <div class="useredit">
+  <div class="user-part">
     <div class="container">
-      <div class="useredit-inner">
+      <div class="user-inner">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h1>{{ name }} edit</h1>
+          <h1>
+            {{ name }} profile
+          </h1>
           <div class="actions">
             <button class="btn btn-danger" @click="destroyUser(id)">Destroy</button>
+            <button class="btn btn-info" @click="changeUser()">Change</button>
           </div>
         </div>
-
         <div class="card">
           <div class="card-body">
-            <form @submit.prevent="sendEditForm({
-              user: {
-                id,
-                name,
-                email
-              },
-              id
-            })">
-              <div class="mb-3">
-                <label for="email">Email</label>
-                <input class="form-control"
-                  v-model="email"
-                  type="email"
-                  id="email"
-                >
-              </div>
-              <div class="mb-3">
-                <label for="name">Name</label>
-                <input class="form-control"
-                  v-model="name"
-                  type="text"
-                  id="name"
-                >
-              </div>
-              <button class="btn btn-primary" type="submit">Submit</button>
-            </form>
+            <p>
+              <strong>Email:</strong> {{ email }}
+            </p>
+            <p>
+              <strong>Name:</strong> {{ name }}
+            </p>
+            <p>
+              <strong>Role:</strong> {{ role }}
+            </p>
+            <p>
+              <strong>Created at</strong> {{ created_at }}
+            </p>
           </div>
         </div>
 
@@ -58,13 +46,15 @@ export default defineComponent({
       id: '',
       name: '',
       email: '',
+      role: '',
+      created_at: '',
     })
     const route = useRoute()
 
-    // Придумать как можно обойтись без этого
+    // Избавиться от этого - написать мутации и через getters брать данные, которые нужны
     onBeforeMount(() => {
       const params = { id: route.params.id }
-      store.dispatch('user/getUserForEdit', params).then(data => {
+      store.dispatch('user/getUser', params).then(data => {
         for (const item in data.body) {
           userData[item] = data.body[item]
         }
@@ -82,31 +72,25 @@ export default defineComponent({
               text: 'asdfdsf',
               type: 'success'
             })
-            router.push('/userslist')
+            router.push({ name: 'user_index' })
           }
         })
       }
     }
 
-    function sendEditForm(params) {
-      store.dispatch('user/updateUser', params).then(data => {
-        console.log(data);
-        if (data.ok) {
-          store.commit('notice/setNotice', {
-            title: "Success",
-            text: 'asdfdsf',
-            type: 'success'
-          })
-          router.push('/userslist')
-        }
-      })
+    function changeUser() {
+      router.push({ name: 'user_edit', params: { id: route.params.id }})
     }
 
     return {
       ...toRefs(userData),
       destroyUser,
-      sendEditForm
+      changeUser,
     }
-  },
+  }
 })
 </script>
+
+<style>
+
+</style>

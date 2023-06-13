@@ -10,7 +10,7 @@
             :key="user.id"
           >
             <div>
-              <router-link :to="'/user/' + user.id">
+              <router-link :to="{ name: 'user_show', params: { id: user.id } }">
                 {{ user.name }}: {{ user.role }}
               </router-link>
             </div>
@@ -59,7 +59,7 @@ export default defineComponent({
     }
 
     function changeUser(id) {
-      router.push({ path: `/user/${id}/edit` })
+      router.push({ name: 'user_edit', params: { id }})
     }
 
     return {

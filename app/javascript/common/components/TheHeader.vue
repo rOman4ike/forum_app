@@ -16,12 +16,11 @@
                 <router-link class="nav-link" to="/signup">Signup</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="/userslist">Users List</router-link>
+                <router-link class="nav-link" :to="{ name: 'user_index' }">Users List</router-link>
               </li>
             </ul>
           </div>
         </nav>
-
       </div>
     </div>
   </header>
