@@ -41,25 +41,27 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
-import { defineComponent } from 'vue'
+<script lang='ts'>
+import { defineComponent, ref, reactive, toRefs } from 'vue'
+import { UserLogin } from 'main/types/user'
 
 export default defineComponent({
   setup() {
-    const email = ref('')
-    const password = ref('')
-    const remember = ref(false)
+    const user = reactive<UserLogin>({
+      email: '',
+      password: '',
+    })
+
+    const remember = ref<boolean>(false)
 
     function sendLoginForm(): void {
-      console.log(email.value);
-      console.log(password.value);
-      console.log(remember.value);
+      console.log(user.email)
+      console.log(user.password)
+      console.log(remember.value)
     }
 
     return {
-      email,
-      password,
+      ...toRefs(user),
       remember,
       sendLoginForm,
     }

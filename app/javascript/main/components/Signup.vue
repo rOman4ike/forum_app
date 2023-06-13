@@ -57,29 +57,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
-import Vue from 'vue'
-import User from 'main/types/user'
+import { defineComponent, reactive, toRefs } from 'vue'
 import store from 'main/store/base'
-// import router from 'main/routes/index'
+import { UserSignup } from 'main/types/user'
 
 export default defineComponent({
-  setup(props, context) {
-    const user = reactive<User>({
+  setup() {
+    const user = reactive<UserSignup>({
       email: '',
       name: '',
       password: '',
       password_confirmation: '',
     })
 
-    // ПРИМЕРЫ
-    // router.push('/')
-    // const note = computed(() => store.state.currentNote)
-    // const age = ref<number | string>(23)
-
-    function sendSignupForm(params) {
+    function sendSignupForm(params: { user: UserSignup }): void {
       store.dispatch('user/createUser', params).then(data => {
-        console.log(data);
         if (data.ok) {
           store.commit('notice/setNotice', {
             title: "Success",
@@ -91,12 +83,11 @@ export default defineComponent({
     }
 
     return {
-      ...user,
+      ...toRefs(user),
       sendSignupForm
     }
   },
-  // Вызывается каждый раз, когда юзер покидает страницу компонента
-  // beforeRouteLeave(to, from, next) {}
+
 })
 </script>
 

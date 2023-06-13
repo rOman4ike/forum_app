@@ -16,11 +16,11 @@
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent } from "vue";
+import Vue, { defineComponent } from "vue"
 
 export default defineComponent({
   setup() {
-    function sendAllUsersMessage() {
+    function sendAllUsersMessage(): void {
       Vue.http.post('/api/v1/users/send_messages').then(data => {
         console.log(data);
       })

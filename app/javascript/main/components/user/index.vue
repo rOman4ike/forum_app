@@ -15,8 +15,10 @@
               </router-link>
             </div>
             <div class="actions">
-              <button class="btn btn-danger" @click="destroyUser({id: user.id}, idx)">Destroy</button>
-              <button class="btn btn-info" @click="changeUser(user.id)">Change</button>
+              <button class="btn btn-danger" @click="destroyUser({ id: user.id }, idx)">Destroy</button>
+              <router-link :to="{ name: 'user_edit', params: { id: user.id } }">
+                <button class="btn btn-info">Change</button>
+              </router-link>
             </div>
           </li>
         </ul>
@@ -26,14 +28,14 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import { defineComponent, onBeforeMount, ref } from "vue"
 import store from 'main/store/base'
-import { router } from 'main/routes/index'
+import { UserIndex } from 'main/types/user'
 
 export default defineComponent({
   setup() {
-    const users = ref([])
+    const users = ref<UserIndex[]>([])
 
     onBeforeMount(() => {
       store.dispatch('user/getUsers').then(data => {
@@ -42,10 +44,9 @@ export default defineComponent({
     })
 
     // Придумать как проинициализировать этот метод (один раз) и использовать его везде
-    function destroyUser(params, idx) {
+    function destroyUser(params: { id: string | number }, idx: number): void {
       if (confirm("Are you sure?")) {
         store.dispatch('user/destroyUser', params).then(data => {
-          console.log(data);
           if (data.ok) {
             store.commit('notice/setNotice', {
               title: "Success",
@@ -58,14 +59,9 @@ export default defineComponent({
       }
     }
 
-    function changeUser(id) {
-      router.push({ name: 'user_edit', params: { id }})
-    }
-
     return {
       users,
       destroyUser,
-      changeUser,
     }
   },
 })

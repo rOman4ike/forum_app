@@ -9,7 +9,9 @@
           </h1>
           <div class="actions">
             <button class="btn btn-danger" @click="destroyUser(id)">Destroy</button>
-            <button class="btn btn-info" @click="changeUser()">Change</button>
+            <router-link :to="{ name: 'user_edit', params: { id } }">
+              <button class="btn btn-info">Change</button>
+            </router-link>
           </div>
         </div>
         <div class="card">
@@ -37,12 +39,13 @@
 <script lang="ts">
 import { defineComponent, onBeforeMount, reactive, toRefs } from 'vue'
 import { useRoute } from 'vue2-helpers/vue-router'
-import store from 'main/store/base'
 import { router } from 'main/routes/index'
+import store from 'main/store/base'
+import { UserShow } from 'main/types/user'
 
 export default defineComponent({
   setup() {
-    const userData = reactive({
+    const user = reactive<UserShow>({
       id: '',
       name: '',
       email: '',
@@ -56,13 +59,13 @@ export default defineComponent({
       const params = { id: route.params.id }
       store.dispatch('user/getUser', params).then(data => {
         for (const item in data.body) {
-          userData[item] = data.body[item]
+          user[item] = data.body[item]
         }
       })
     })
 
     // Придумать как проинициализировать этот метод (один раз) и использовать его везде
-    function destroyUser(id) {
+    function destroyUser(id: number | string) {
       if (confirm('Are you sure?')) {
         const params = { id }
         store.dispatch('user/destroyUser', params).then(data => {
@@ -78,14 +81,9 @@ export default defineComponent({
       }
     }
 
-    function changeUser() {
-      router.push({ name: 'user_edit', params: { id: route.params.id }})
-    }
-
     return {
-      ...toRefs(userData),
+      ...toRefs(user),
       destroyUser,
-      changeUser,
     }
   }
 })

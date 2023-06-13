@@ -9,7 +9,6 @@
             <button class="btn btn-danger" @click="destroyUser(id)">Destroy</button>
           </div>
         </div>
-
         <div class="card">
           <div class="card-body">
             <form @submit.prevent="sendEditForm({
@@ -51,10 +50,11 @@ import { defineComponent, onBeforeMount, reactive, toRefs } from 'vue'
 import { useRoute } from 'vue2-helpers/vue-router'
 import store from 'main/store/base'
 import { router } from 'main/routes/index'
+import { UserEdit } from 'main/types/user'
 
 export default defineComponent({
   setup() {
-    const userData = reactive({
+    const userData = reactive<UserEdit>({
       id: '',
       name: '',
       email: '',
@@ -72,7 +72,7 @@ export default defineComponent({
     })
 
     // Придумать как проинициализировать этот метод (один раз) и использовать его везде
-    function destroyUser(id) {
+    function destroyUser(id: string | number) {
       if (confirm('Are you sure?')) {
         const params = { id }
         store.dispatch('user/destroyUser', params).then(data => {
@@ -88,7 +88,7 @@ export default defineComponent({
       }
     }
 
-    function sendEditForm(params) {
+    function sendEditForm(params: { user: UserEdit, id: number | string }) {
       store.dispatch('user/updateUser', params).then(data => {
         console.log(data);
         if (data.ok) {
