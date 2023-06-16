@@ -15,7 +15,7 @@
               </router-link>
             </div>
             <div class="actions">
-              <button class="btn btn-danger" @click="destroyUser({ id: user.id }, idx)">Destroy</button>
+              <button class="btn btn-danger" @click="destroyUser(user.id, idx)">Destroy</button>
               <router-link :to="{ name: 'user_edit', params: { id: user.id } }">
                 <button class="btn btn-info">Change</button>
               </router-link>
@@ -32,10 +32,12 @@
 import { defineComponent, onBeforeMount, ref } from "vue"
 import store from 'main/store/base'
 import { UserIndex } from 'main/types/user'
+import actions from 'main/mixins/actions'
 
 export default defineComponent({
   setup() {
     const users = ref<UserIndex[]>([])
+    const { destroyRecord } = actions()
 
     onBeforeMount(() => {
       store.dispatch('user/getUsers').then(data => {
@@ -44,19 +46,13 @@ export default defineComponent({
     })
 
     // Придумать как проинициализировать этот метод (один раз) и использовать его везде
-    function destroyUser(params: { id: string | number }, idx: number): void {
-      if (confirm("Are you sure?")) {
-        store.dispatch('user/destroyUser', params).then(data => {
-          if (data.ok) {
-            store.commit('notice/setNotice', {
-              title: "Success",
-              text: 'asdfdsf',
-              type: 'success'
-            })
-            users.value.splice(idx, 1)
-          }
-        })
-      }
+    function destroyUser(id: number | string, idx: number): void {
+      const params = { id }
+      destroyRecord(params, 'user/destroyUser').then(data => {
+        if (data.ok) {
+          users.value.splice(idx, 1)
+        }
+      })
     }
 
     return {

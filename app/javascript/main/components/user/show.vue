@@ -42,6 +42,7 @@ import { useRoute } from 'vue2-helpers/vue-router'
 import { router } from 'main/routes/index'
 import store from 'main/store/base'
 import { UserShow } from 'main/types/user'
+import actions from 'main/mixins/actions'
 
 export default defineComponent({
   setup() {
@@ -53,6 +54,7 @@ export default defineComponent({
       created_at: '',
     })
     const route = useRoute()
+    const { destroyRecord } = actions()
 
     // Избавиться от этого - написать мутации и через getters брать данные, которые нужны
     onBeforeMount(() => {
@@ -64,21 +66,13 @@ export default defineComponent({
       })
     })
 
-    // Придумать как проинициализировать этот метод (один раз) и использовать его везде
-    function destroyUser(id: number | string) {
-      if (confirm('Are you sure?')) {
-        const params = { id }
-        store.dispatch('user/destroyUser', params).then(data => {
-          if (data.ok) {
-            store.commit('notice/setNotice', {
-              title: "Success",
-              text: 'asdfdsf',
-              type: 'success'
-            })
-            router.push({ name: 'user_index' })
-          }
-        })
-      }
+    function destroyUser(id: number | string): void {
+      const params: object = { id }
+      destroyRecord(params, 'user/destroyUser').then(data => {
+        if (data.ok) {
+          router.push({ name: 'user_index' })
+        }
+      })
     }
 
     return {

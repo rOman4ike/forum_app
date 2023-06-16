@@ -51,6 +51,7 @@ import { useRoute } from 'vue2-helpers/vue-router'
 import store from 'main/store/base'
 import { router } from 'main/routes/index'
 import { UserEdit } from 'main/types/user'
+import actions from 'main/mixins/actions'
 
 export default defineComponent({
   setup() {
@@ -60,6 +61,7 @@ export default defineComponent({
       email: '',
     })
     const route = useRoute()
+    const { destroyRecord } = actions()
 
     // Придумать как можно обойтись без этого
     onBeforeMount(() => {
@@ -71,26 +73,17 @@ export default defineComponent({
       })
     })
 
-    // Придумать как проинициализировать этот метод (один раз) и использовать его везде
-    function destroyUser(id: string | number) {
-      if (confirm('Are you sure?')) {
-        const params = { id }
-        store.dispatch('user/destroyUser', params).then(data => {
-          if (data.ok) {
-            store.commit('notice/setNotice', {
-              title: "Success",
-              text: 'asdfdsf',
-              type: 'success'
-            })
-            router.push({ name: 'user_index' })
-          }
-        })
-      }
+    function destroyUser(id: number | string): void {
+      const params: object = { id }
+      destroyRecord(params, 'user/destroyUser').then(data => {
+        if (data.ok) {
+          router.push({ name: 'user_index' })
+        }
+      })
     }
 
     function sendEditForm(params: { user: UserEdit, id: number | string }) {
       store.dispatch('user/updateUser', params).then(data => {
-        console.log(data);
         if (data.ok) {
           store.commit('notice/setNotice', {
             title: "Success",

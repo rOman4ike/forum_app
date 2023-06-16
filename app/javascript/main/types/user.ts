@@ -1,5 +1,15 @@
 type Role = 'unconfirmed_user' | 'user' | 'tech_support' | 'moderator' | 'admin' | ''
 
+interface UserModel {
+  id: number | string,
+  email: string,
+  name?: string,
+  password?: string,
+  password_confirmation?: string,
+  role?: Role,
+  created_at?: string
+}
+
 interface User {
   email: string,
 }
@@ -28,4 +38,4 @@ interface UserEdit extends User {
   name: string,
 }
 
-export { User, UserLogin, UserSignup, UserIndex, UserShow, UserEdit }
+export { User, UserLogin, UserSignup, UserIndex, UserShow, UserEdit, UserModel }

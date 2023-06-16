@@ -1,10 +1,10 @@
 import Vue from "vue"
-import User from "main/types/user"
+import { UserModel } from "main/types/user"
 
 export const userStore = {
   state: {
-    user: {} as User,
-    users: [] as Array<User>,
+    user: {} as UserModel,
+    users: [] as Array<UserModel>,
     errors: [],
   },
   mutations: {
@@ -19,58 +19,47 @@ export const userStore = {
     }
   },
   actions: {
-    createUser({ commit, state }, params) {
+    createUser({  }, params) {
       return new Promise((resolve, reject) => {
         Vue.http.post('/api/v1/users', params).then(data => {
           resolve(data)
         })
       })
     },
-    getUsers({ commit, state }) {
+    getUsers() {
       return new Promise((resolve, reject) => {
         Vue.http.get('/api/v1/users/search').then(data => {
           resolve(data)
         })
       })
     },
-    destroyUser({ commit, state }, params) {
+    destroyUser({ }, params) {
       return new Promise((resolve, reject) => {
         Vue.http.delete('/api/v1/users/' + params.id).then(data => {
           resolve(data)
         })
       })
     },
-    getUser({ commit, state }, params) {
+    getUser({ }, params) {
       return new Promise((resolve, reject) => {
         Vue.http.get('/api/v1/users/' + params.id).then(data => {
           resolve(data)
         })
       })
     },
-    updateUser({ commit, state }, params) {
+    updateUser({ }, params) {
       return new Promise((resolve, reject) => {
         Vue.http.patch('/api/v1/users/' + params.id, params).then(data => {
           resolve(data)
         })
       })
     },
-    getUserForEdit({ commit, state }, params) {
+    getUserForEdit({ }, params) {
       return new Promise((resolve, reject) => {
         Vue.http.get(`/api/v1/users/${params.id}/edit`).then(data => {
           resolve(data)
         })
       })
     }
-  },
-  getters: {
-    user(state) {
-      return () => state.user
-    },
-    users(state) {
-      return () => state.users
-    },
-    errors(state) {
-      return () => state.errors
-    },
   }
 }
