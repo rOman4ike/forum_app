@@ -4,25 +4,24 @@
       <div class="useredit-inner">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h1>{{ name }} edit</h1>
+          <h1 v-once>{{ user.name }} edit</h1>
           <div class="actions">
-            <button class="btn btn-danger" @click="destroyUser(id)">Destroy</button>
+            <button class="btn btn-danger" @click="destroyUser(user.id)">Destroy</button>
           </div>
         </div>
         <div class="card">
           <div class="card-body">
             <form @submit.prevent="sendEditForm({
               user: {
-                id,
-                name,
-                email
-              },
-              id
+                id: user.id,
+                name: user.name,
+                email: user.email
+              }
             })">
               <div class="mb-3">
                 <label for="email">Email</label>
                 <input class="form-control"
-                  v-model="email"
+                  v-model="user.email"
                   type="email"
                   id="email"
                 >
@@ -30,7 +29,7 @@
               <div class="mb-3">
                 <label for="name">Name</label>
                 <input class="form-control"
-                  v-model="name"
+                  v-model="user.name"
                   type="text"
                   id="name"
                 >
@@ -46,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, reactive, toRefs } from 'vue'
+import { computed, defineComponent, onBeforeMount } from 'vue'
 import { useRoute } from 'vue2-helpers/vue-router'
 import store from 'main/store/base'
 import { router } from 'main/routes/index'
@@ -55,22 +54,13 @@ import actions from 'main/mixins/actions'
 
 export default defineComponent({
   setup() {
-    const userData = reactive<UserEdit>({
-      id: '',
-      name: '',
-      email: '',
-    })
+    const user = computed(() => store.state.user.user)
     const route = useRoute()
     const { destroyRecord } = actions()
 
-    // Придумать как можно обойтись без этого
     onBeforeMount(() => {
       const params = { id: route.params.id }
-      store.dispatch('user/getUserForEdit', params).then(data => {
-        for (const item in data.body) {
-          userData[item] = data.body[item]
-        }
-      })
+      store.dispatch('user/getUserForEdit', params)
     })
 
     function destroyUser(id: number | string): void {
@@ -82,7 +72,7 @@ export default defineComponent({
       })
     }
 
-    function sendEditForm(params: { user: UserEdit, id: number | string }) {
+    function sendEditForm(params: { user: UserEdit }) {
       store.dispatch('user/updateUser', params).then(data => {
         if (data.ok) {
           store.commit('notice/setNotice', {
@@ -96,7 +86,7 @@ export default defineComponent({
     }
 
     return {
-      ...toRefs(userData),
+      user,
       destroyUser,
       sendEditForm
     }

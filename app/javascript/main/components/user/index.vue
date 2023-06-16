@@ -29,23 +29,19 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, onBeforeMount, ref } from "vue"
+import { computed, defineComponent, onBeforeMount } from "vue"
 import store from 'main/store/base'
-import { UserIndex } from 'main/types/user'
 import actions from 'main/mixins/actions'
 
 export default defineComponent({
   setup() {
-    const users = ref<UserIndex[]>([])
+    const users = computed(() => store.state.user.users)
     const { destroyRecord } = actions()
 
     onBeforeMount(() => {
-      store.dispatch('user/getUsers').then(data => {
-        users.value = data.body
-      })
+      store.dispatch('user/getUsers')
     })
 
-    // Придумать как проинициализировать этот метод (один раз) и использовать его везде
     function destroyUser(id: number | string, idx: number): void {
       const params = { id }
       destroyRecord(params, 'user/destroyUser').then(data => {

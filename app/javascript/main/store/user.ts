@@ -26,9 +26,18 @@ export const userStore = {
         })
       })
     },
-    getUsers() {
+    getUsers({ commit }) {
       return new Promise((resolve, reject) => {
         Vue.http.get('/api/v1/users/search').then(data => {
+          commit('setUsers', data.body)
+          resolve(data)
+        })
+      })
+    },
+    getUser({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        Vue.http.get('/api/v1/users/' + params.id).then(data => {
+          commit('setUser', data.body)
           resolve(data)
         })
       })
@@ -40,23 +49,17 @@ export const userStore = {
         })
       })
     },
-    getUser({ }, params) {
-      return new Promise((resolve, reject) => {
-        Vue.http.get('/api/v1/users/' + params.id).then(data => {
-          resolve(data)
-        })
-      })
-    },
     updateUser({ }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.patch('/api/v1/users/' + params.id, params).then(data => {
+        Vue.http.patch('/api/v1/users/' + params.user.id, params).then(data => {
           resolve(data)
         })
       })
     },
-    getUserForEdit({ }, params) {
+    getUserForEdit({ commit }, params) {
       return new Promise((resolve, reject) => {
         Vue.http.get(`/api/v1/users/${params.id}/edit`).then(data => {
+          commit('setUser', data.body)
           resolve(data)
         })
       })
