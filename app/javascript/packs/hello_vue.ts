@@ -5,7 +5,10 @@ import Vuex from 'vuex'
 import App from '../app.vue'
 import { router } from 'main/routes'
 import baseStore from 'main/store/base'
+import VueI18n from 'vue-i18n'
+import { i18n } from 'locales/vue-i18n'
 
+Vue.use(VueI18n)
 Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -30,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     router,
     store,
+    i18n,
     render: h => h(App)
   }).$mount()
 

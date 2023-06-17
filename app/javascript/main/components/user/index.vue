@@ -3,7 +3,7 @@
     <div class="container">
       <div class="users-list-inner">
 
-        <h1 class="mb-3">Users List</h1>
+        <h1 class="mb-3">{{ $t('users.index.title') }}</h1>
         <ul class="list-group">
           <li class="list-group-item d-flex justify-content-between align-items-center"
             v-for="(user, idx) in users"

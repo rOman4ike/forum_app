@@ -1,7 +1,16 @@
 type Role = 'unconfirmed_user' | 'user' | 'tech_support' | 'moderator' | 'admin' | ''
 
+enum Roles {
+  UnconfirmedUser = 'unconfirmed_user',
+  User = 'user',
+  TechSupport = 'tech_support',
+  Moderator = 'moderator',
+  Admin = 'admin',
+  Empty = '',
+}
+
 interface UserModel {
-  id: number | string,
+  readonly id: number | string,
   email: string,
   name?: string,
   password?: string,

@@ -4,7 +4,9 @@
       <div class="useredit-inner">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h1 v-once>{{ user.name }} edit</h1>
+          <h1>
+            {{ $t('users.edit.title') }}
+          </h1>
           <div class="actions">
             <button class="btn btn-danger" @click="destroyUser(user.id)">Destroy</button>
           </div>
@@ -19,7 +21,7 @@
               }
             })">
               <div class="mb-3">
-                <label for="email">Email</label>
+                <label for="email">{{ $t('users.edit.form.email') }}</label>
                 <input class="form-control"
                   v-model="user.email"
                   type="email"
@@ -27,7 +29,7 @@
                 >
               </div>
               <div class="mb-3">
-                <label for="name">Name</label>
+                <label for="name">{{ $t('users.edit.form.name') }}</label>
                 <input class="form-control"
                   v-model="user.name"
                   type="text"

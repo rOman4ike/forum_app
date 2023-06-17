@@ -3,12 +3,12 @@
     <div class="container">
       <div class="login-inner">
 
-        <h1 class="mb-3">Login</h1>
+        <h1 class="mb-3">{{ $t('login.title') }}</h1>
         <div class="card">
           <div class="card-body">
             <form @submit.prevent="sendLoginForm()">
               <div class="mb-3">
-                <label for="email">Email</label>
+                <label for="email">{{ $t('login.form.email') }}</label>
                 <input class="form-control"
                   v-model="email"
                   type="email"
@@ -16,7 +16,7 @@
                 >
               </div>
               <div class="mb-3">
-                <label for="password">Password</label>
+                <label for="password">{{ $t('login.form.password') }}</label>
                 <input class="form-control"
                   v-model="password"
                   type="password"
@@ -29,7 +29,7 @@
                   type="checkbox"
                   id="remember"
                 >
-                <label class="form-check-label" for="remember">Remember me</label>
+                <label class="form-check-label" for="remember">{{ $t('login.form.remember') }}</label>
               </div>
               <button class="btn btn-primary" type="submit">Submit</button>
             </form>

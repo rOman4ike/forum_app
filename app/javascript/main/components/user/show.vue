@@ -2,9 +2,10 @@
   <div class="user-part">
     <div class="container">
       <div class="user-inner">
+
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h1>
-            {{ user.name }} profile
+            {{ $t('users.show.title', { name: user.name }) }}
           </h1>
           <div class="actions">
             <button class="btn btn-danger" @click="destroyUser(user.id)">Destroy</button>
@@ -16,16 +17,16 @@
         <div class="card">
           <div class="card-body">
             <p>
-              <strong>Email:</strong> {{ user.email }}
+              <strong>{{ $t('users.show.info.email') }}:</strong> {{ user.email }}
             </p>
             <p>
-              <strong>Name:</strong> {{ user.name }}
+              <strong>{{ $t('users.show.info.name') }}:</strong> {{ user.name }}
             </p>
             <p>
-              <strong>Role:</strong> {{ user.role }}
+              <strong>{{ $t('users.show.info.role') }}:</strong> {{ user.role }}
             </p>
             <p>
-              <strong>Created at</strong> {{ user.created_at }}
+              <strong>{{ $t('users.show.info.created_at') }}</strong> {{ user.created_at }}
             </p>
           </div>
         </div>

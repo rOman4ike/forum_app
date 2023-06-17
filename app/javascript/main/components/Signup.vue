@@ -3,7 +3,7 @@
     <div class="container">
       <div class="signup-inner">
 
-        <h1 class="mb-3">Signup</h1>
+        <h1 class="mb-3">{{ $t('signup.title') }}</h1>
         <div class="card">
           <div class="card-body">
             <form @submit.prevent="sendSignupForm({
@@ -15,7 +15,7 @@
               }
             })">
               <div class="mb-3">
-                <label for="email">Email</label>
+                <label for="email">{{ $t('signup.form.email') }}</label>
                 <input class="form-control"
                   v-model="email"
                   type="email"
@@ -23,7 +23,7 @@
                 >
               </div>
               <div class="mb-3">
-                <label for="name">Name</label>
+                <label for="name">{{ $t('signup.form.name') }}</label>
                 <input class="form-control"
                   v-model="name"
                   type="text"
@@ -31,7 +31,7 @@
                 >
               </div>
               <div class="mb-3">
-                <label for="password">Password</label>
+                <label for="password">{{ $t('signup.form.password') }}</label>
                 <input class="form-control"
                   v-model="password"
                   type="password"
@@ -39,7 +39,7 @@
                 >
               </div>
               <div class="mb-3">
-                <label for="repeat-password">Repeat Password</label>
+                <label for="repeat-password">{{ $t('signup.form.password_confirmation') }}</label>
                 <input class="form-control"
                   v-model="password_confirmation"
                   type="password"
