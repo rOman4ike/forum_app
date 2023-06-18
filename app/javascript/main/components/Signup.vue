@@ -60,6 +60,7 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import store from 'main/store/base'
 import { UserSignup } from 'main/types/user'
+import { router } from 'main/routes'
 
 export default defineComponent({
   setup() {
@@ -78,6 +79,7 @@ export default defineComponent({
             text: 'asdfdsf',
             type: 'success'
           })
+          router.push({ name: 'user_index' })
         }
       })
     }
