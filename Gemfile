@@ -24,6 +24,7 @@ gem 'paranoia'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'jquery-rails'
+gem 'jwt'
 
 # gem 'paperclip' # посмотреть ActiveStorage
 # gem "recaptcha" # Не факт что нужен

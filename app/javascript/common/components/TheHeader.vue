@@ -7,23 +7,31 @@
           <div class="container-fluid">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <router-link class="nav-link" to="/">
+                <router-link class="nav-link" :to="{ name: 'main' }">
                   {{ $t('header.nav.main') }}
                 </router-link>
               </li>
-              <li class="nav-item">
-                <router-link class="nav-link" to="/login">
+              <li class="nav-item" v-if="!isAuthorized">
+                <router-link class="nav-link" :to="{ name: 'login' }">
                   {{ $t('header.nav.login') }}
                 </router-link>
               </li>
-              <li class="nav-item">
-                <router-link class="nav-link" to="/signup">
+              <li class="nav-item" v-if="!isAuthorized">
+                <router-link class="nav-link" :to="{ name: 'signup' }">
                   {{ $t('header.nav.signup') }}
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link class="nav-link" :to="{ name: 'user_index' }">
                   {{ $t('header.nav.users_list') }}
+                </router-link>
+              </li>
+              <li class="nav-item" v-if="isAuthorized">
+                <router-link class="nav-link link-primary"
+                  :to="{ name: 'main' }"
+                  @click.native="logout()"
+                >
+                  {{ $t('header.nav.logout') }}
                 </router-link>
               </li>
               <li class="nav-item">
@@ -48,27 +56,34 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, onBeforeMount } from "vue"
+import { defineComponent, onBeforeMount, computed } from "vue"
 import { i18n } from "locales/vue-i18n"
+import store from 'main/store/base'
 
 export default defineComponent({
   setup() {
+    const isAuthorized = computed(() => store.state.user.isAuthorized)
+
     onBeforeMount(() => {
       if (localStorage.getItem('locale')) {
         i18n.locale = localStorage.getItem('locale')
       }
     })
 
-    console.log(navigator);
-
-
     function changeLocale(locale) {
       localStorage.setItem('locale', locale)
       i18n.locale = locale
     }
 
+    function logout() {
+      localStorage.removeItem('token')
+      store.commit('user/setIsAuthorized', false)
+    }
+
     return {
-      changeLocale
+      isAuthorized,
+      changeLocale,
+      logout
     }
   }
 })

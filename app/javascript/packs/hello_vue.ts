@@ -7,7 +7,10 @@ import { router } from 'main/routes'
 import baseStore from 'main/store/base'
 import VueI18n from 'vue-i18n'
 import { i18n } from 'locales/vue-i18n'
+import VueCanCan from 'vue-cancan'
 
+// window.abilities - are exported JSON abilities from CanCan, read further.
+Vue.use(VueCanCan, { rules: window.abilities.rules });
 Vue.use(VueI18n)
 Vue.use(Vuex)
 Vue.use(VueRouter)
@@ -15,9 +18,10 @@ Vue.use(VueResource)
 
 // Обработка 404
 Vue.http.interceptors.push((request, next) => {
-  next(responce => {
-    const statusList: number[] = [404, 500]
-    if (statusList.includes(responce.status)) {
+  request.headers.set('token', localStorage.getItem('token') || '')
+
+  next(response => {
+    if (!response.ok) {
       baseStore.commit('notice/setNotice', {
         title: "Ошибка",
         text: 'Ошибка емое',

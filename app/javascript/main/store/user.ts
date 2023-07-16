@@ -6,6 +6,7 @@ export const userStore = {
     user: {} as UserModel,
     users: [] as Array<UserModel>,
     errors: [],
+    isAuthorized: false as Boolean
   },
   mutations: {
     setUser(state, user) {
@@ -16,6 +17,9 @@ export const userStore = {
     },
     setErrors(state, errors) {
       Vue.set(state, 'errors', errors)
+    },
+    setIsAuthorized(state, isAuthorized) {
+      Vue.set(state, 'isAuthorized', isAuthorized)
     }
   },
   actions: {

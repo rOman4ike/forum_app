@@ -73,7 +73,11 @@ export default defineComponent({
 
     function sendSignupForm(params: { user: UserSignup }): void {
       store.dispatch('user/createUser', params).then(data => {
+        console.log(data);
         if (data.ok) {
+          console.log(store.state.user);
+          localStorage.setItem('token', data.data.token)
+          store.commit('user/setIsAuthorized', true)
           store.commit('notice/setNotice', {
             title: "Success",
             text: 'asdfdsf',

@@ -10,7 +10,8 @@ const messages = {
         main: 'Главная',
         login: 'Войти',
         signup: 'Регистрация',
-        users_list: 'Список пользователей'
+        users_list: 'Список пользователей',
+        logout: 'Выйти'
       }
     },
     main: {
@@ -77,7 +78,8 @@ const messages = {
         main: 'Main',
         login: 'Login',
         signup: 'Signup',
-        users_list: 'Users list'
+        users_list: 'Users list',
+        logout: 'Logout'
       }
     },
     main: {
