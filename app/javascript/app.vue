@@ -15,9 +15,8 @@ import store from 'main/store/base'
 export default {
   setup() {
     onBeforeMount(() => {
-      store.commit('user/setIsAuthorized', localStorage.getItem('token') || false)
+      store.commit('user/setIsAuthorized', !!localStorage.getItem('token') || false)
       store.dispatch('ability/setAbilities', window.ability.abilities.models_abilities)
-      console.log(window.ability.abilities.models_abilities);
       document.querySelector('script[data-name="ability"]').remove()
     })
   },

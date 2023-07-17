@@ -46,6 +46,7 @@ import { defineComponent, ref, reactive, toRefs, onBeforeMount } from 'vue'
 import { UserLogin } from 'main/types/user'
 import { router } from 'main/routes/index'
 import store from 'main/store/base'
+import abilities from 'main/mixins/abilities'
 
 export default defineComponent({
   setup() {
@@ -53,18 +54,11 @@ export default defineComponent({
       email: '',
       password: '',
     })
-
     const remember = ref<boolean>(false)
+    const { checkAbiltities } = abilities()
 
     onBeforeMount(() => {
-      if (store.state.user.isAuthorized) {
-        router.push({ name: 'main' })
-        store.commit('notice/setNotice', {
-          title: "Error",
-          text: 'asdfdsf',
-          type: 'danger'
-        })
-      }
+      checkAbiltities(!store.state.user.isAuthorized)
     })
 
     function sendLoginForm(): void {
@@ -73,7 +67,6 @@ export default defineComponent({
         password: user.password
       }}
       store.dispatch('user/createSession', params).then(data => {
-        console.log(data);
         if (data.ok) {
           localStorage.setItem('token', data.data.token)
           store.commit('user/setIsAuthorized', true)
@@ -82,7 +75,7 @@ export default defineComponent({
             text: 'asdfdsf',
             type: 'success'
           })
-          router.push({ name: 'user_index' })
+          router.go({ name: 'main' })
         }
       })
     }

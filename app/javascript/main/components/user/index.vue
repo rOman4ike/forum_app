@@ -38,24 +38,21 @@
 import { computed, ref, defineComponent, onBeforeMount } from "vue"
 import store from 'main/store/base'
 import actions from 'main/mixins/actions'
-import { router } from 'main/routes/index'
+import abilities from 'main/mixins/abilities'
 
 export default defineComponent({
   setup() {
     const users = computed(() => store.state.user.users)
     const userAbility = ref(store.state.ability.abilities.User)
     const { destroyRecord } = actions()
+    const { checkAbiltities } = abilities()
+
     onBeforeMount(() => {
-      if (userAbility.value.read) {
-        store.dispatch('user/getUsers')
-      } else {
-        router.push({ name: 'main' })
-        store.commit('notice/setNotice', {
-          title: "Error",
-          text: 'asdfdsf',
-          type: 'danger'
-        })
-      }
+      checkAbiltities(userAbility.value.read).then(data => {
+        if (data) {
+          store.dispatch('user/getUsers')
+        }
+      })
     })
 
     function destroyUser(id: number | string, idx: number): void {

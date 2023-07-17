@@ -42,6 +42,7 @@ import { useRoute } from 'vue2-helpers/vue-router'
 import { router } from 'main/routes/index'
 import store from 'main/store/base'
 import actions from 'main/mixins/actions'
+import abilities from 'main/mixins/abilities'
 
 export default defineComponent({
   setup() {
@@ -49,19 +50,15 @@ export default defineComponent({
     const userAbility = ref(store.state.ability.abilities.User)
     const route = useRoute()
     const { destroyRecord } = actions()
+    const { checkAbiltities } = abilities()
 
     onBeforeMount(() => {
-      if (userAbility.value.read) {
-        const params = { id: route.params.id }
-        store.dispatch('user/getUser', params)
-      } else {
-        router.push({ name: 'main' })
-        store.commit('notice/setNotice', {
-          title: "Error",
-          text: 'asdfdsf',
-          type: 'danger'
-        })
-      }
+      checkAbiltities(userAbility.value.read).then(data => {
+        if (data) {
+          const params = { id: route.params.id }
+          store.dispatch('user/getUser', params)
+        }
+      })
     })
 
     function destroyUser(id: number | string): void {

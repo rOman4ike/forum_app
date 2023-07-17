@@ -61,6 +61,7 @@ import { defineComponent,onBeforeMount, reactive, toRefs } from 'vue'
 import store from 'main/store/base'
 import { UserSignup } from 'main/types/user'
 import { router } from 'main/routes'
+import abilities from 'main/mixins/abilities'
 
 export default defineComponent({
   setup() {
@@ -70,16 +71,10 @@ export default defineComponent({
       password: '',
       password_confirmation: '',
     })
+    const { checkAbiltities } = abilities()
 
     onBeforeMount(() => {
-      if (store.state.user.isAuthorized) {
-        router.push({ name: 'main' })
-        store.commit('notice/setNotice', {
-          title: "Error",
-          text: 'asdfdsf',
-          type: 'danger'
-        })
-      }
+      checkAbiltities(!store.state.user.isAuthorized)
     })
 
     function sendSignupForm(params: { user: UserSignup }): void {
