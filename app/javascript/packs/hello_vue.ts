@@ -10,11 +10,15 @@ import { i18n } from 'locales/vue-i18n'
 import VueCanCan from 'vue-cancan'
 
 // window.abilities - are exported JSON abilities from CanCan, read further.
-Vue.use(VueCanCan, { rules: window.abilities.rules });
+// Vue.use(VueCanCan, { rules: window.Abilities });
+// v-if="$can('edit', item)"
+// v-can.index.items
 Vue.use(VueI18n)
 Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(VueResource)
+
+// router.beforeEach(VueCanCan.navigationGuard('/'));
 
 // Обработка 404
 Vue.http.interceptors.push((request, next) => {

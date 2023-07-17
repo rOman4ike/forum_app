@@ -1,5 +1,11 @@
 class Api::V1::UsersController < ApplicationController
-  # before_action :authentication, except: [:create]
+  before_action :authentication, except: [:create]
+  load_resource except: [:create]
+  authorize_resource except: [:create]
+
+  def index
+    @users = User.all
+  end
 
   def show
     @user = User.find(params[:id])
@@ -9,6 +15,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @token = encode_user_data({ user_data: @user.id })
+      log_in @user
       # UserNotifierMailer.send_signup_email(@user).deliver
     else
       render status: 422
@@ -27,10 +34,6 @@ class Api::V1::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update(user_edit_update)
-  end
-
-  def search
-    @users = User.all
   end
 
   def user_activations

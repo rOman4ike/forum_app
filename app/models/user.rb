@@ -11,6 +11,17 @@ class User < ApplicationRecord
 
   has_secure_password
   has_secure_token :activation_token, length: 36
+
+  def self.roles
+    ROLES.map(&:to_s)
+  end
+
+  ROLES.each do |role|
+    define_method "#{role}?" do
+      role.to_s == self.role
+    end
+  end
+
 end
 
 # == Schema Information

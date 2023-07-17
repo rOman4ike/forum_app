@@ -32,7 +32,7 @@ export const userStore = {
     },
     getUsers({ commit }) {
       return new Promise((resolve, reject) => {
-        Vue.http.get('/api/v1/users/search').then(data => {
+        Vue.http.get('/api/v1/users').then(data => {
           commit('setUsers', data.body)
           resolve(data)
         })
@@ -64,6 +64,20 @@ export const userStore = {
       return new Promise((resolve, reject) => {
         Vue.http.get(`/api/v1/users/${params.id}/edit`).then(data => {
           commit('setUser', data.body)
+          resolve(data)
+        })
+      })
+    },
+    createSession({ }, params) {
+      return new Promise((resolve, reject) => {
+        Vue.http.post(`/api/v1/login`, params).then(data => {
+          resolve(data)
+        })
+      })
+    },
+    deleteSession({ }, params) {
+      return new Promise((resolve, reject) => {
+        Vue.http.delete(`/api/v1/logout`).then(data => {
           resolve(data)
         })
       })

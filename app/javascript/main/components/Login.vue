@@ -44,6 +44,8 @@
 <script lang='ts'>
 import { defineComponent, ref, reactive, toRefs } from 'vue'
 import { UserLogin } from 'main/types/user'
+import { router } from 'main/routes/index'
+import store from 'main/store/base'
 
 export default defineComponent({
   setup() {
@@ -55,9 +57,23 @@ export default defineComponent({
     const remember = ref<boolean>(false)
 
     function sendLoginForm(): void {
-      console.log(user.email)
-      console.log(user.password)
-      console.log(remember.value)
+      const params = { session: {
+        email: user.email,
+        password: user.password
+      }}
+      store.dispatch('user/createSession', params).then(data => {
+        console.log(data);
+        if (data.ok) {
+          localStorage.setItem('token', data.data.token)
+          store.commit('user/setIsAuthorized', true)
+          store.commit('notice/setNotice', {
+            title: "Success",
+            text: 'asdfdsf',
+            type: 'success'
+          })
+          router.push({ name: 'user_index' })
+        }
+      })
     }
 
     return {

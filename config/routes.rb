@@ -4,14 +4,16 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      resources :users, only: [:show, :create, :destroy, :update, :edit] do
+      resources :users do
         collection do
-          get :search
+          # get :search
           get :user_activations # поправить на activate
           post :send_messages
         end
       end
 
+      post '/login', to: 'sessions#login'
+      delete '/logout', to: 'sessions#logout'
     end
   end
 

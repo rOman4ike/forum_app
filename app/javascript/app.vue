@@ -9,8 +9,15 @@
 <script lang='ts'>
 import TheHeader from 'common/components/TheHeader.vue'
 import TheAlert from 'common/components/TheAlert.vue'
+import { onBeforeMount } from 'vue'
+import store from 'main/store/base'
 
 export default {
+  setup() {
+    onBeforeMount(() => {
+      store.commit('user/setIsAuthorized', localStorage.getItem('token') || false)
+    })
+  },
   components: {
     TheHeader,
     TheAlert
