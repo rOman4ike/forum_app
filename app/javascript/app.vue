@@ -16,6 +16,8 @@ export default {
   setup() {
     onBeforeMount(() => {
       store.commit('user/setIsAuthorized', localStorage.getItem('token') || false)
+      store.dispatch('ability/setAbilities', window.ability.abilities.models_abilities)
+      document.querySelector('script[data-name="ability"]').remove()
     })
   },
   components: {
@@ -26,8 +28,4 @@ export default {
 </script>
 
 <style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
 </style>

@@ -32,6 +32,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def abilities
+    @params = {
+      abilities: available_abilities
+    }
+  end
+
   private
 
   def current_user

@@ -21,7 +21,6 @@ class User < ApplicationRecord
       role.to_s == self.role
     end
   end
-
 end
 
 # == Schema Information
