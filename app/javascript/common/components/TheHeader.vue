@@ -21,7 +21,7 @@
                   {{ $t('header.nav.signup') }}
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="abilities.User.read">
                 <router-link class="nav-link" :to="{ name: 'user_index' }">
                   {{ $t('header.nav.users_list') }}
                 </router-link>
@@ -59,10 +59,12 @@
 import { defineComponent, onBeforeMount, computed } from "vue"
 import { i18n } from "locales/vue-i18n"
 import store from 'main/store/base'
+import { router } from 'main/routes/index'
 
 export default defineComponent({
   setup() {
     const isAuthorized = computed(() => store.state.user.isAuthorized)
+    const abilities = computed(() => store.state.ability.abilities)
 
     onBeforeMount(() => {
       if (localStorage.getItem('locale')) {
@@ -76,14 +78,22 @@ export default defineComponent({
     }
 
     function logout() {
-      localStorage.removeItem('token')
-      store.commit('user/setIsAuthorized', false)
+      console.log(router);
+
+      store.dispatch('user/deleteSession').then(data => {
+        if (data.ok) {
+          localStorage.removeItem('token')
+          store.commit('user/setIsAuthorized', false)
+          router.go({ name: 'main' })
+        }
+      })
     }
 
     return {
       isAuthorized,
       changeLocale,
-      logout
+      logout,
+      abilities
     }
   }
 })

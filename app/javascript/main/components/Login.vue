@@ -42,7 +42,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, reactive, toRefs } from 'vue'
+import { defineComponent, ref, reactive, toRefs, onBeforeMount } from 'vue'
 import { UserLogin } from 'main/types/user'
 import { router } from 'main/routes/index'
 import store from 'main/store/base'
@@ -55,6 +55,17 @@ export default defineComponent({
     })
 
     const remember = ref<boolean>(false)
+
+    onBeforeMount(() => {
+      if (store.state.user.isAuthorized) {
+        router.push({ name: 'main' })
+        store.commit('notice/setNotice', {
+          title: "Error",
+          text: 'asdfdsf',
+          type: 'danger'
+        })
+      }
+    })
 
     function sendLoginForm(): void {
       const params = { session: {

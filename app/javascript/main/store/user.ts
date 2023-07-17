@@ -75,7 +75,7 @@ export const userStore = {
         })
       })
     },
-    deleteSession({ }, params) {
+    deleteSession() {
       return new Promise((resolve, reject) => {
         Vue.http.delete(`/api/v1/logout`).then(data => {
           resolve(data)

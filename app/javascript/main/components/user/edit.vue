@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeMount } from 'vue'
+import { computed, ref, defineComponent, onBeforeMount } from 'vue'
 import { useRoute } from 'vue2-helpers/vue-router'
 import store from 'main/store/base'
 import { router } from 'main/routes/index'
@@ -57,12 +57,22 @@ import actions from 'main/mixins/actions'
 export default defineComponent({
   setup() {
     const user = computed(() => store.state.user.user)
+    const userAbility = ref(store.state.ability.abilities.User)
     const route = useRoute()
     const { destroyRecord } = actions()
 
     onBeforeMount(() => {
-      const params = { id: route.params.id }
-      store.dispatch('user/getUserForEdit', params)
+      if (userAbility.value.update) {
+        const params = { id: route.params.id }
+        store.dispatch('user/getUserForEdit', params)
+      } else {
+        router.push({ name: 'main' })
+        store.commit('notice/setNotice', {
+          title: "Error",
+          text: 'asdfdsf',
+          type: 'danger'
+        })
+      }
     })
 
     function destroyUser(id: number | string): void {

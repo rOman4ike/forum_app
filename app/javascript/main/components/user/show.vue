@@ -8,8 +8,8 @@
             {{ $t('users.show.title', { name: user.name }) }}
           </h1>
           <div class="actions">
-            <button class="btn btn-danger" @click="destroyUser(user.id)">Destroy</button>
-            <router-link :to="{ name: 'user_edit', params: { id: user.id } }">
+            <button class="btn btn-danger" @click="destroyUser(user.id)" v-if="userAbility.destroy">Destroy</button>
+            <router-link :to="{ name: 'user_edit', params: { id: user.id } }" v-if="userAbility.update">
               <button class="btn btn-info">Change</button>
             </router-link>
           </div>
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeMount } from 'vue'
+import { computed, ref, defineComponent, onBeforeMount } from 'vue'
 import { useRoute } from 'vue2-helpers/vue-router'
 import { router } from 'main/routes/index'
 import store from 'main/store/base'
@@ -46,12 +46,22 @@ import actions from 'main/mixins/actions'
 export default defineComponent({
   setup() {
     const user = computed(() => store.state.user.user )
+    const userAbility = ref(store.state.ability.abilities.User)
     const route = useRoute()
     const { destroyRecord } = actions()
 
     onBeforeMount(() => {
-      const params = { id: route.params.id }
-      store.dispatch('user/getUser', params)
+      if (userAbility.value.read) {
+        const params = { id: route.params.id }
+        store.dispatch('user/getUser', params)
+      } else {
+        router.push({ name: 'main' })
+        store.commit('notice/setNotice', {
+          title: "Error",
+          text: 'asdfdsf',
+          type: 'danger'
+        })
+      }
     })
 
     function destroyUser(id: number | string): void {
@@ -66,6 +76,7 @@ export default defineComponent({
     return {
       user,
       destroyUser,
+      userAbility,
     }
   }
 })

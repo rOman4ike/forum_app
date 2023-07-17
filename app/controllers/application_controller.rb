@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
     user = User.find(user_data) rescue false
 
     if user
-      session[:user_id] = user.id
       return true
     else
       render status: 403
@@ -32,12 +31,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def abilities
-    @params = {
-      abilities: available_abilities
-    }
-  end
-
   private
 
   def current_user
@@ -46,11 +39,12 @@ class ApplicationController < ActionController::Base
   end
 
   def log_out
-    session.delete(:user_id)
+    reset_session
     @current_user = nil
   end
 
   def log_in(user)
     session[:user_id] = user.id
+    @current_user ||= User.find(session[:user_id])
   end
 end

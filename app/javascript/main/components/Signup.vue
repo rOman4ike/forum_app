@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent,onBeforeMount, reactive, toRefs } from 'vue'
 import store from 'main/store/base'
 import { UserSignup } from 'main/types/user'
 import { router } from 'main/routes'
@@ -69,6 +69,17 @@ export default defineComponent({
       name: '',
       password: '',
       password_confirmation: '',
+    })
+
+    onBeforeMount(() => {
+      if (store.state.user.isAuthorized) {
+        router.push({ name: 'main' })
+        store.commit('notice/setNotice', {
+          title: "Error",
+          text: 'asdfdsf',
+          type: 'danger'
+        })
+      }
     })
 
     function sendSignupForm(params: { user: UserSignup }): void {
