@@ -12,7 +12,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :questions
+      resources :questions do
+        collection do
+          get :search
+        end
+      end
 
       post '/login', to: 'sessions#login'
       delete '/logout', to: 'sessions#logout'

@@ -35,6 +35,10 @@ class Api::V1::QuestionsController < ApplicationController
     end
   end
 
+  def search
+
+  end
+
   private
 
   def question_params

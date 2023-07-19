@@ -14,7 +14,38 @@
           </div>
         </div>
         <div class="mb-3">
-          <input class="form-control" type="text" placeholder="Input question title">
+          <input class="form-control"
+            v-model="searchValue"
+            @input="sendInputValue()"
+            type="text"
+            placeholder="Input question title"
+          >
+          <div class="list-group collapse"
+            :class="{'d-block': searchValue}"
+          >
+            <a class="list-group-item list-group-item-action">
+              Item
+            </a>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="form-check form-check-inline mb-3">
+            <input class="form-check-input"
+              type="radio"
+              name="pagination"
+              id="pagination1"
+              checked
+            ><label class="form-check-label" for="pagination1">Пагинация в виде меню</label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input class="form-check-input"
+              type="radio"
+              name="pagination"
+              id="pagination2"
+            ><label class="form-check-label" for="pagination2">Автоматическая пагинация</label>
+          </div>
         </div>
 
         <ul class="list-group mb-3">
@@ -95,6 +126,7 @@ export default defineComponent({
   setup() {
     const questions = computed(() => store.state.question.questions)
     const questionAbilities = ref(store.state.ability.abilities.Question)
+    const searchValue = ref('')
     const route = useRoute()
     const { destroyRecord } = actions()
     const { checkAbilities } = abilities()
@@ -120,8 +152,6 @@ export default defineComponent({
     }
 
     function changePage(page): void {
-      console.log(page);
-
       if (page >= 1 && page <= questions.value.total_pages && page != route.query.page) {
         const params = { page }
         router.push({ name: 'question_index', query: { page } })
@@ -129,12 +159,18 @@ export default defineComponent({
       }
     }
 
+    function sendInputValue(): void {
+      console.log('uep');
+    }
+
     return {
       questions,
       questionAbilities,
+      searchValue,
       route,
       destroyQuestion,
-      changePage
+      changePage,
+      sendInputValue
     }
   }
 })
