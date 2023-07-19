@@ -4,10 +4,10 @@
       <div class="main-inner">
 
           <div class="d-flex justify-content-between align-items-center mb-3">
-          <h1 class="mb-3">
-            {{ $t('main.title') }}
-          </h1>
-          <button class="btn btn-primary" @click="sendAllUsersMessage()">Send</button>
+            <h1 class="mb-3">
+              {{ $t('main.title') }}
+            </h1>
+            <button class="btn btn-primary" @click="sendAllUsersMessage()">Send</button>
           </div>
 
       </div>
