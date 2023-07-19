@@ -4,6 +4,9 @@
       <div class="users-list-inner">
 
         <h1 class="mb-3">{{ $t('users.index.title') }}</h1>
+        <div class="mb-3">
+          <input class="form-control" type="text" placeholder="Input user name">
+        </div>
         <ul class="list-group">
           <li class="list-group-item d-flex justify-content-between align-items-center"
             v-for="(user, idx) in users"

@@ -26,6 +26,11 @@
                   {{ $t('header.nav.users_list') }}
                 </router-link>
               </li>
+              <li class="nav-item" v-if="abilities.Question.read">
+                <router-link class="nav-link" :to="{ name: 'user_index' }">
+                  Questions
+                </router-link>
+              </li>
               <li class="nav-item" v-if="isAuthorized">
                 <router-link class="nav-link link-primary"
                   :to="{ name: 'main' }"
