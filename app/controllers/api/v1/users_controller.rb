@@ -1,7 +1,9 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authentication, except: [:create]
-  load_resource except: [:create]
-  authorize_resource except: [:create]
+  before_action :authentication, except: [:create, :user_activations]
+  load_resource except: [:create, :user_activations]
+  authorize_resource except: [:create, :user_activations]
+
+  include AvailableAbilities
 
   def index
     @users = User.all
@@ -16,6 +18,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       @token = encode_user_data({ user_data: @user.id })
       log_in @user
+      @abilities = available_abilities
       # UserNotifierMailer.send_signup_email(@user).deliver
     else
       render status: 422

@@ -79,15 +79,14 @@ export default defineComponent({
 
     function sendSignupForm(params: { user: UserSignup }): void {
       store.dispatch('user/createUser', params).then(data => {
-        console.log(data);
         if (data.ok) {
-          console.log(store.state.user);
+          store.dispatch('ability/setAbilities', data.data.abilities.models_abilities)
           localStorage.setItem('token', data.data.token)
           store.commit('user/setIsAuthorized', true)
           store.commit('notice/setNotice', {
             title: "Success",
             text: 'asdfdsf',
-            type: 'success'
+            type: 'info'
           })
           router.push({ name: 'user_index' })
         }

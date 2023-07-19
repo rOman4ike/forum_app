@@ -78,13 +78,11 @@ export default defineComponent({
     }
 
     function logout() {
-      console.log(router);
-
       store.dispatch('user/deleteSession').then(data => {
         if (data.ok) {
           localStorage.removeItem('token')
           store.commit('user/setIsAuthorized', false)
-          router.go({ name: 'main' })
+          store.dispatch('ability/setAbilities', data.data.abilities.models_abilities)
         }
       })
     }

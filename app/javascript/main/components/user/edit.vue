@@ -81,7 +81,7 @@ export default defineComponent({
       })
     }
 
-    function sendEditForm(params: { user: UserEdit }) {
+    function sendEditForm(params: { user: UserEdit }): void {
       store.dispatch('user/updateUser', params).then(data => {
         if (data.ok) {
           store.commit('notice/setNotice', {

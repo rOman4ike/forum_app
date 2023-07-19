@@ -68,6 +68,8 @@ export default defineComponent({
       }}
       store.dispatch('user/createSession', params).then(data => {
         if (data.ok) {
+          store.dispatch('ability/setAbilities', data.data.abilities.models_abilities)
+          console.log(data.data.abilities.models_abilities);
           localStorage.setItem('token', data.data.token)
           store.commit('user/setIsAuthorized', true)
           store.commit('notice/setNotice', {
@@ -75,7 +77,7 @@ export default defineComponent({
             text: 'asdfdsf',
             type: 'success'
           })
-          router.go({ name: 'main' })
+          router.push({ name: 'main' })
         }
       })
     }
