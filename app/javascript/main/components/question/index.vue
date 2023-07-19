@@ -6,7 +6,9 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h1>Questions list <span class="badge bg-secondary">New</span> <span class='badge bg-danger'>Related</span> </h1>
           <div class="btn-group">
-            <router-link :to="{ name: 'question_new' }">
+            <router-link :to="{ name: 'question_new' }"
+              v-if="questionAbilities.create"
+            >
               <a class="btn btn-success">Create</a>
             </router-link>
           </div>
@@ -25,13 +27,17 @@
             </router-link>
             <div class="btn-group">
               <router-link class="btn btn-info"
+                v-if="questionAbilities.update"
                 :to="{ name: 'question_edit', params: { id: question.id } }"
               >
                 Change
               </router-link>
               <button class="btn btn-danger"
+                v-if="questionAbilities.destroy"
                 @click='destroyQuestion(question.id, idx)'
-              >Destroy</button>
+              >
+                Destroy
+              </button>
             </div>
           </li>
         </ul>
@@ -73,6 +79,7 @@ export default defineComponent({
 
     return {
       questions,
+      questionAbilities,
       destroyQuestion
     }
   }

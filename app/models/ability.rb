@@ -4,16 +4,16 @@ class Ability
   include CanCan::Ability
   # :read, :create, :update, :destroy, :manage
   def initialize(user)
+    can :read, Question
+
     return unless user
 
     if user.unconfirmed_user?
       can :read, User
-      can :read, Question
     end
 
     if user.user?
       can :read, User
-      can :read, Question
     end
 
     if user.tech_support?

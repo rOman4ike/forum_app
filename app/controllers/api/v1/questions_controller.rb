@@ -1,7 +1,7 @@
 class Api::V1::QuestionsController < ApplicationController
-  # before_action :authentication, except: [:index]
-  # load_resource except: [:index]
-  # authorize_resource except: [:index]
+  before_action :authentication, except: [:index, :show]
+  load_resource except: [:index, :show]
+  authorize_resource except: [:index, :show]
 
   def index
     @questions = Question.all

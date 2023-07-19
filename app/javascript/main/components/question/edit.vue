@@ -35,7 +35,6 @@
           </div>
         </div>
 
-
       </div>
     </div>
   </div>
@@ -83,7 +82,7 @@ export default defineComponent({
     function sendEditForm(): void {
       const params = {
         question: {
-          id: question.value.content,
+          id: question.value.id,
           title: question.value.title,
           content: question.value.content
         }
@@ -95,7 +94,7 @@ export default defineComponent({
             text: 'asdfdsf',
             type: 'success'
           })
-          router.push({ name: 'question_show', params: { id: question.value.content } })
+          router.push({ name: 'question_show', params: { id: question.value.id } })
         }
       })
     }

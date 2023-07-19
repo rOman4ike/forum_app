@@ -143,9 +143,6 @@ const messages = {
 }
 
 const availableLocales = ['ru', 'en']
-console.log(
-  availableLocales.some(el => el == navigator.language) ? navigator.language : 'en'
-);
 
 export const i18n = new VueI18n({
   locale: availableLocales.some(el => el == navigator.language) ? navigator.language : 'en',

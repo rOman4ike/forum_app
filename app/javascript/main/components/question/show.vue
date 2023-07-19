@@ -7,12 +7,14 @@
           <h1>{{ question.title }}</h1>
           <div class="btn-group">
             <button class="btn btn-danger"
+              v-if="questionAbility.destroy"
               @click="destroyQuestion(question.id)"
             >
               Destroy
             </button>
             <router-link class="btn btn-info"
-              :to="{ name: 'question_edit', params: { id: question.id } }"
+              v-if="questionAbility.update"
+              :to="{ name: 'question_edit', params: { id: route.params.id } }"
             >
               Change
             </router-link>
@@ -21,7 +23,7 @@
 
         <div class="card mb-3">
           <div class="card-header">
-            <span>Created: 0</span>
+            <span v-if="question.user">Created: {{ question.user.name }}</span>
             <span class="ms-3">Modified: 0</span>
             <span class="ms-3">Rating: 0</span>
             <span class="ms-3">Viewed: 0</span>
@@ -39,6 +41,7 @@
             <p>Lorem, ipsum.</p>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -80,6 +83,8 @@ export default defineComponent({
 
     return {
       question,
+      questionAbility,
+      route,
       destroyQuestion
     }
   }
