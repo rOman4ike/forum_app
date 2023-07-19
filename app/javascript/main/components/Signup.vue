@@ -71,10 +71,10 @@ export default defineComponent({
       password: '',
       password_confirmation: '',
     })
-    const { checkAbiltities } = abilities()
+    const { checkAbilities } = abilities()
 
     onBeforeMount(() => {
-      checkAbiltities(!store.state.user.isAuthorized)
+      checkAbilities(!store.state.user.isAuthorized)
     })
 
     function sendSignupForm(params: { user: UserSignup }): void {

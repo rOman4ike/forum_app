@@ -8,32 +8,27 @@ class Ability
 
     if user.unconfirmed_user?
       can :read, User
+      can :read, Question
     end
 
     if user.user?
       can :read, User
+      can :read, Question
     end
 
     if user.tech_support?
       can :manage, User
+      can :manage, Question
     end
 
     if user.moderator?
       can :manage, User
+      can :manage, Question
     end
 
     if user.admin?
       can :manage, User
-    end
-  end
-
-  def as_json(options = {})
-    rules.map do |rule| {
-      base_behavior: rule.base_behavior,
-      actions: rule.actions.as_json,
-      subjects: rule.subjects.map(&:to_s),
-      conditions: rule.conditions.as_json
-    }
+      can :manage, Question
     end
   end
 end

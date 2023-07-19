@@ -13,13 +13,7 @@
         </div>
         <div class="card">
           <div class="card-body">
-            <form @submit.prevent="sendEditForm({
-              user: {
-                id: user.id,
-                name: user.name,
-                email: user.email
-              }
-            })">
+            <form @submit.prevent="sendEditForm()">
               <div class="mb-3">
                 <label for="email">{{ $t('users.edit.form.email') }}</label>
                 <input class="form-control"
@@ -61,10 +55,10 @@ export default defineComponent({
     const userAbility = ref(store.state.ability.abilities.User)
     const route = useRoute()
     const { destroyRecord } = actions()
-    const { checkAbiltities } = abilities()
+    const { checkAbilities } = abilities()
 
     onBeforeMount(() => {
-      checkAbiltities(userAbility.value.update).then(data => {
+      checkAbilities(userAbility.value.update).then(data => {
         if (data) {
           const params = { id: route.params.id }
           store.dispatch('user/getUserForEdit', params)
@@ -74,14 +68,21 @@ export default defineComponent({
 
     function destroyUser(id: number | string): void {
       const params: object = { id }
-      destroyRecord(params, 'user/destroyUser').then(data => {
+      destroyRecord('user/destroyUser', params).then(data => {
         if (data.ok) {
           router.push({ name: 'user_index' })
         }
       })
     }
 
-    function sendEditForm(params: { user: UserEdit }): void {
+    function sendEditForm(): void {
+      const params = {
+        user: {
+          id: user.value.id,
+          name: user.value.name,
+          email: user.value.email
+        }
+      }
       store.dispatch('user/updateUser', params).then(data => {
         if (data.ok) {
           store.commit('notice/setNotice', {

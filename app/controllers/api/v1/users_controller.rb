@@ -36,7 +36,9 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_edit_update)
+    unless @user.update(user_edit_update)
+      render status: 422
+    end
   end
 
   def user_activations

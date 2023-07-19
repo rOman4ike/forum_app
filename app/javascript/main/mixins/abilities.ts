@@ -2,7 +2,7 @@ import store from 'main/store/base'
 import { router } from 'main/routes/index'
 
 export default function(): object {
-  function checkAbiltities(ability: boolean) {
+  function checkAbilities(ability: boolean) {
     return new Promise((resolve, reject) => {
       if (ability) {
         resolve(true)
@@ -19,6 +19,6 @@ export default function(): object {
   }
 
   return {
-    checkAbiltities
+    checkAbilities
   }
 }

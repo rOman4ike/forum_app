@@ -20,7 +20,7 @@ export const questionStore = {
   actions: {
     getQuestions({ commit }) {
       return new Promise((resolve, reject) => {
-        Vue.http.get('').then(data => {
+        Vue.http.get('/api/v1/questions').then(data => {
           commit('setQuestions', data.body)
           resolve(data)
         })
@@ -28,7 +28,7 @@ export const questionStore = {
     },
     getQuestion({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.get('' + params.id).then(data => {
+        Vue.http.get('/api/v1/questions/' + params.id).then(data => {
           commit('setQuestion', data.body)
           resolve(data)
         })
@@ -36,7 +36,7 @@ export const questionStore = {
     },
     getQuestionForEdit({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.get('' + params.id).then(data => {
+        Vue.http.get(`/api/v1/questions/${params.id}/edit`).then(data => {
           commit('setQuestion', data.body)
           resolve(data)
         })
@@ -44,7 +44,7 @@ export const questionStore = {
     },
     createQuestion({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.post('', params).then(data => {
+        Vue.http.post('/api/v1/questions', params).then(data => {
           commit('setQuestion', data.body)
           resolve(data)
         })
@@ -52,14 +52,14 @@ export const questionStore = {
     },
     destroyQuestion({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.post('' + params.id).then(data => {
+        Vue.http.delete('/api/v1/questions/' + params.id).then(data => {
           resolve(data)
         })
       })
     },
     updateQuestion({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.post('' + params.id, params).then(data => {
+        Vue.http.patch('/api/v1/questions/' + params.id, params).then(data => {
           resolve(data)
         })
       })

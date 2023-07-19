@@ -2,19 +2,85 @@
   <div class="question-show">
     <div class="container">
       <div class="question-show-inner">
-        <h1 class="mb-3">Show</h1>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1>{{ question.title }}</h1>
+          <div class="btn-group">
+            <button class="btn btn-danger"
+              @click="destroyQuestion(question.id)"
+            >
+              Destroy
+            </button>
+            <router-link class="btn btn-info"
+              :to="{ name: 'question_edit', params: { id: question.id } }"
+            >
+              Change
+            </router-link>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">
+            <span>Created: 0</span>
+            <span class="ms-3">Modified: 0</span>
+            <span class="ms-3">Rating: 0</span>
+            <span class="ms-3">Viewed: 0</span>
+          </div>
+          <div class="card-body">
+            <p>
+              {{ question.content }}
+            </p>
+          </div>
+        </div>
+
+        <h2>Comment</h2>
+        <div class="card">
+          <div class="card-body">
+            <p>Lorem, ipsum.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent, ref, onBeforeMount } from 'vue'
+import { useRoute } from 'vue2-helpers/vue-router'
+import { router } from 'main/routes/index'
+import store from 'main/store/base'
+import actions from 'main/mixins/actions'
+import abilities from 'main/mixins/abilities'
 
 export default defineComponent({
   setup() {
-    return {
+    const question = computed(() => store.state.question.question)
+    const questionAbility = ref(store.state.ability.abilities.Question)
+    const route = useRoute()
+    const { destroyRecord } = actions()
+    const { checkAbilities } = abilities()
 
+    onBeforeMount(() => {
+      checkAbilities(questionAbility.value.read).then(data => {
+        const params = { id: route.params.id }
+        if (data) {
+          store.dispatch('question/getQuestion', params)
+        }
+      })
+    })
+
+    function destroyQuestion(id: number | string): void {
+      const params: object = { id }
+      destroyRecord('question/destroyQuestion', params).then(data => {
+        if (data.ok) {
+          router.push({ name: 'question_index' })
+        }
+      })
+    }
+
+    return {
+      question,
+      destroyQuestion
     }
   }
 })

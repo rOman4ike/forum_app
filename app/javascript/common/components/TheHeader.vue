@@ -27,7 +27,7 @@
                 </router-link>
               </li>
               <li class="nav-item" v-if="abilities.Question.read">
-                <router-link class="nav-link" :to="{ name: 'user_index' }">
+                <router-link class="nav-link" :to="{ name: 'question_index' }">
                   Questions
                 </router-link>
               </li>
@@ -41,7 +41,7 @@
               </li>
               <li class="nav-item">
                 <div class="locale-changer">
-                  <select v-model="$i18n.locale" @change="changeLocale($i18n.locale)">
+                  <select class="form-select" v-model="$i18n.locale" @change="changeLocale($i18n.locale)">
                     <option v-for="locale in $i18n.availableLocales"
                       :key="`locale-${locale}`"
                       :value="locale"

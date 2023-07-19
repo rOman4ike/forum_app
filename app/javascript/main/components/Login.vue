@@ -55,10 +55,10 @@ export default defineComponent({
       password: '',
     })
     const remember = ref<boolean>(false)
-    const { checkAbiltities } = abilities()
+    const { checkAbilities } = abilities()
 
     onBeforeMount(() => {
-      checkAbiltities(!store.state.user.isAuthorized)
+      checkAbilities(!store.state.user.isAuthorized)
     })
 
     function sendLoginForm(): void {
@@ -69,7 +69,6 @@ export default defineComponent({
       store.dispatch('user/createSession', params).then(data => {
         if (data.ok) {
           store.dispatch('ability/setAbilities', data.data.abilities.models_abilities)
-          console.log(data.data.abilities.models_abilities);
           localStorage.setItem('token', data.data.token)
           store.commit('user/setIsAuthorized', true)
           store.commit('notice/setNotice', {

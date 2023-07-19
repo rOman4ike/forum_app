@@ -17,17 +17,21 @@
                 {{ user.name }}: {{ user.role }}
               </router-link>
             </div>
-            <div class="actions">
-              <button class="btn btn-danger"
-                v-if="userAbility.destroy"
-                @click="destroyUser(user.id, idx)"
-              >Destroy</button>
+            <div class="btn-group">
+              <button class="btn btn-dark"
+                v-if="userAbility.manage"
+              >Login as</button>
               <router-link class="btn btn-info"
                 v-if="userAbility.update"
                 :to="{ name: 'user_edit', params: { id: user.id } }"
               >
                 Change
               </router-link>
+              <button class="btn btn-danger"
+                v-if="userAbility.destroy"
+                @click="destroyUser(user.id, idx)"
+              >Destroy</button>
+
             </div>
           </li>
         </ul>
@@ -48,10 +52,10 @@ export default defineComponent({
     const users = computed(() => store.state.user.users)
     const userAbility = ref(store.state.ability.abilities.User)
     const { destroyRecord } = actions()
-    const { checkAbiltities } = abilities()
+    const { checkAbilities } = abilities()
 
     onBeforeMount(() => {
-      checkAbiltities(userAbility.value.read).then(data => {
+      checkAbilities(userAbility.value.read).then(data => {
         if (data) {
           store.dispatch('user/getUsers')
         }
@@ -60,7 +64,7 @@ export default defineComponent({
 
     function destroyUser(id: number | string, idx: number): void {
       const params = { id }
-      destroyRecord(params, 'user/destroyUser').then(data => {
+      destroyRecord('user/destroyUser', params).then(data => {
         if (data.ok) {
           users.value.splice(idx, 1)
         }

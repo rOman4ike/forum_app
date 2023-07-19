@@ -2,6 +2,9 @@
   <div id="app">
     <the-header></the-header>
     <the-alert></the-alert>
+    <div class="container">
+      <p>breadcrumb</p>
+    </div>
     <router-view></router-view>
   </div>
 </template>

@@ -1,7 +1,7 @@
 import store from 'main/store/base'
 
 export default function(): object {
-  function destroyRecord(params: object, methodPath: string): object {
+  function destroyRecord(methodPath: string, params: object): object {
     return new Promise((resolve, reject) => {
       if (confirm('Are you sure?')) {
         store.dispatch(methodPath, params).then(data => {
