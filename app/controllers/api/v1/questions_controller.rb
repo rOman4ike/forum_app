@@ -4,7 +4,7 @@ class Api::V1::QuestionsController < ApplicationController
   authorize_resource except: [:index, :show]
 
   def index
-    @questions = Question.all
+    @questions = Question.order(created_at: :desc).page(params[:page])
   end
 
   def show

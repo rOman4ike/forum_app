@@ -25,7 +25,7 @@ const routes = [
   { path: '/users/:id/edit/', name: 'user_edit', component: UserEdit },
 
   // Question
-  { path: '/questions/', name: 'question_index', component: QuestionIndex },
+  { path: '/questions/', name: 'question_index', component: QuestionIndex, query: { page: 1 } },
   { path: '/questions/new/', name: 'question_new', component: QuestionNew },
   { path: '/questions/:id/', name: 'question_show', component: QuestionShow },
   { path: '/questions/:id/edit/', name: 'question_edit', component: QuestionEdit },

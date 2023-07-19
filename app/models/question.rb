@@ -3,6 +3,8 @@ class Question < ApplicationRecord
 
   validates :title, presence: true
   validates :content, presence: true
+
+  paginates_per 2
 end
 
 # == Schema Information

@@ -4,7 +4,7 @@
       <div class="question-index-inner">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h1>Questions list <span class="badge bg-secondary">New</span> <span class='badge bg-danger'>Related</span> </h1>
+          <h1>Questions list <span class="badge bg-secondary">New</span> <span class='badge bg-danger'>Related</span></h1>
           <div class="btn-group">
             <router-link :to="{ name: 'question_new' }"
               v-if="questionAbilities.create"
@@ -17,9 +17,9 @@
           <input class="form-control" type="text" placeholder="Input question title">
         </div>
 
-        <ul class="list-group">
+        <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between align-items-center"
-            v-for="(question, idx) in questions"
+            v-for="(question, idx) in questions.questions"
             :key="question.id"
           >
             <router-link :to="{ name: 'question_show', params: { id: question.id } }">
@@ -42,6 +42,42 @@
           </li>
         </ul>
 
+        <nav>
+          <ul class="pagination justify-content-center">
+            <li class="page-item"
+              :class="{ 'disabled': route.query.page == 1 || !route.query.page }"
+            >
+              <a class="page-link"
+                @click="changePage(route.query.page - 1)"
+              >
+                Previous
+              </a>
+            </li>
+
+            <li class="page-item"
+              v-for="page in questions.total_pages"
+              :key='page'
+            >
+              <a class="page-link"
+                :class="{ 'active': page == questions.current_page }"
+                @click="changePage(page)"
+              >
+                {{ page }}
+              </a>
+            </li>
+
+            <li class="page-item"
+              :class="{ 'disabled': route.query.page == questions.total_pages}"
+            >
+              <a class="page-link"
+                @click="changePage(+route.query.page + 1 || 2)"
+              >
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
+
       </div>
     </div>
   </div>
@@ -49,6 +85,8 @@
 
 <script lang="ts">
 import { computed, ref, defineComponent, onBeforeMount } from "vue"
+import { useRoute } from 'vue2-helpers/vue-router'
+import { router } from 'main/routes/index'
 import store from 'main/store/base'
 import actions from 'main/mixins/actions'
 import abilities from 'main/mixins/abilities'
@@ -57,13 +95,17 @@ export default defineComponent({
   setup() {
     const questions = computed(() => store.state.question.questions)
     const questionAbilities = ref(store.state.ability.abilities.Question)
+    const route = useRoute()
     const { destroyRecord } = actions()
     const { checkAbilities } = abilities()
 
     onBeforeMount(() => {
       checkAbilities(questionAbilities.value.read).then(data => {
+        const params = {
+          page: route.query.page || 1
+        }
         if (data) {
-          store.dispatch('question/getQuestions')
+          store.dispatch('question/getQuestions', params)
         }
       })
     })
@@ -77,10 +119,22 @@ export default defineComponent({
       })
     }
 
+    function changePage(page): void {
+      console.log(page);
+
+      if (page >= 1 && page <= questions.value.total_pages && page != route.query.page) {
+        const params = { page }
+        router.push({ name: 'question_index', query: { page } })
+        store.dispatch('question/getQuestions', params)
+      }
+    }
+
     return {
       questions,
       questionAbilities,
-      destroyQuestion
+      route,
+      destroyQuestion,
+      changePage
     }
   }
 })

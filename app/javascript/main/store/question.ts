@@ -18,9 +18,9 @@ export const questionStore = {
     }
   },
   actions: {
-    getQuestions({ commit }) {
+    getQuestions({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.get('/api/v1/questions').then(data => {
+        Vue.http.get(`/api/v1/questions?page=${params.page}`).then(data => {
           commit('setQuestions', data.body)
           resolve(data)
         })
