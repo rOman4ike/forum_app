@@ -8,6 +8,7 @@ class User < ApplicationRecord
   )
 
   has_many :questions
+  has_many :viewed_questions
 
   validates :email, presence: true, uniqueness: true
 

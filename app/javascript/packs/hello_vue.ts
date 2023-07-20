@@ -18,7 +18,6 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-// Обработка 404
 Vue.http.interceptors.push((request, next) => {
   request.headers.set('token', localStorage.getItem('token') || '')
 

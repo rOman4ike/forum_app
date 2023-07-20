@@ -1,0 +1,30 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  question: one
+
+two:
+  user: two
+  question: two
+
+# == Schema Information
+#
+# Table name: viewed_questions
+#
+#  id          :integer          not null, primary key
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  question_id :integer          not null
+#  user_id     :integer          not null
+#
+# Indexes
+#
+#  index_viewed_questions_on_question_id  (question_id)
+#  index_viewed_questions_on_user_id      (user_id)
+#
+# Foreign Keys
+#
+#  question_id  (question_id => questions.id)
+#  user_id      (user_id => users.id)
+#

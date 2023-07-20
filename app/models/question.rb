@@ -1,5 +1,6 @@
 class Question < ApplicationRecord
   belongs_to :user
+  has_many :viewed_questions
 
   validates :title, presence: true
   validates :content, presence: true

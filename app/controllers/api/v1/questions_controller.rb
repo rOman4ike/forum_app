@@ -1,7 +1,7 @@
 class Api::V1::QuestionsController < ApplicationController
-  before_action :authentication, except: [:index, :show]
-  load_resource except: [:index, :show]
-  authorize_resource except: [:index, :show]
+  before_action :authentication, except: [:index, :show, :search]
+  load_resource except: [:index, :show, :search]
+  authorize_resource except: [:index, :show, :search]
 
   def index
     @questions = Question.order(created_at: :desc).page(params[:page])
@@ -9,6 +9,12 @@ class Api::V1::QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    if @question.present?
+      @viewed_question = ViewedQuestion.find_by(question_id: @question.id, user_id: session[:user_id])
+      if @viewed_question.blank?
+        @viewed_question = ViewedQuestion.create(question_id: @question.id, user_id: session[:user_id])
+      end
+    end
   end
 
   def create

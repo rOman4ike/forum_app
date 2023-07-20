@@ -25,7 +25,8 @@
 
         <div class="card mb-3">
           <div class="card-header">
-            <a href="#">Viewed questions</a>
+            <a href="#">User info</a>
+            <a class="ms-3" href="#">Viewed questions</a>
             <a class="ms-3" href="#">Subscribed questions</a>
             <a class="ms-3" href="#">Subscriptions</a>
           </div>
@@ -48,7 +49,15 @@
         <h2>User Questions</h2>
         <div class="card mb-3">
           <div class="card-body">
-            <p>asdf</p>
+            <div class="list-group" v-if="user.questions && user.questions.length">
+              <router-link class="list-group-item list-group-item-action"
+                v-for="question in user.questions"
+                :key="question.id"
+                :to="{ name: 'question_show', params: { id: question.id } }"
+              >
+                {{ question.title }}
+              </router-link>
+            </div>
           </div>
         </div>
 

@@ -26,7 +26,7 @@
             <span v-if="question.user">Created: {{ question.user.name }}</span>
             <span class="ms-3">Modified: 0</span>
             <span class="ms-3">Rating: 0</span>
-            <span class="ms-3">Viewed: 0</span>
+            <span class="ms-3">Viewed: {{ question.viewed }}</span>
           </div>
           <div class="card-body">
             <p>
