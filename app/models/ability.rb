@@ -13,7 +13,12 @@ class Ability
     end
 
     if user.user?
+      can :manage, User, user: user
       can :read, User
+
+      can :create, Question
+      can :read, Question
+      can :manage, Question, user: user
     end
 
     if user.tech_support?

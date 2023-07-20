@@ -13,6 +13,7 @@
             </router-link>
           </div>
         </div>
+
         <div class="position-relative mb-3">
           <input class="form-control"
             v-model="searchValue"
@@ -21,7 +22,7 @@
             placeholder="Input question title"
           >
           <div class="position-absolute w-100"
-            style="z-index: 1;"
+            style="z-index: 5;"
             v-if="searchQuestions.length && searchValue"
           >
             <div class="list-group"
@@ -47,7 +48,6 @@
               checked
             ><label class="form-check-label" for="pagination1">Пагинация в виде меню</label>
           </div>
-
           <div class="form-check form-check-inline">
             <input class="form-check-input"
               type="radio"
@@ -82,7 +82,7 @@
           </li>
         </ul>
 
-        <nav v-if="searchQuestions.length">
+        <nav>
           <ul class="pagination justify-content-center">
             <li class="page-item"
               :class="{ 'disabled': route.query.page == 1 || !route.query.page }"
@@ -93,7 +93,6 @@
                 Previous
               </a>
             </li>
-
             <li class="page-item"
               v-for="page in questions.total_pages"
               :key='page'
@@ -105,7 +104,6 @@
                 {{ page }}
               </a>
             </li>
-
             <li class="page-item"
               :class="{ 'disabled': route.query.page == questions.total_pages}"
             >
@@ -170,8 +168,12 @@ export default defineComponent({
     }
 
     function sendInputValue(): void {
-      const params = { q: searchValue.value }
-      store.dispatch('question/searchQuestion', params)
+      if (searchValue.value.length >= 3) {
+        const params = { q: searchValue.value }
+        store.dispatch('question/searchQuestion', params)
+      } else {
+        store.commit('question/setSearchQuestions', [])
+      }
     }
 
     return {

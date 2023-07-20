@@ -7347,11 +7347,6 @@ vue-breadcrumbs@^1.2.0:
   resolved "https://registry.yarnpkg.com/vue-breadcrumbs/-/vue-breadcrumbs-1.2.0.tgz#7d33a4499e2448a3f0fb637d19885d7263dd257c"
   integrity sha512-5vh3ZKQYfJK5NBJdgyB0fgLgsLQnabdrlRMh3kZVekUxHiYW1NskKCITGcnjbPUscwjys5isOb2Ts0+/6oHG7w==
 
-vue-cancan@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/vue-cancan/-/vue-cancan-0.0.3.tgz#b12c22a55e5697d0e8397c66ef85e87c3f9e65dd"
-  integrity sha512-hMHBbGpbD3KWYz3A+z8Z17JGn9aINNGz7eUqaLrHGdGWDppd8oH+0Zj+YMPgEytkH/vK+dIB9tRdgmN5k5iRlA==
-
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"

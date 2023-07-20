@@ -63,7 +63,7 @@ export const questionStore = {
     },
     updateQuestion({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.patch('/api/v1/questions/' + params.id, params).then(data => {
+        Vue.http.patch('/api/v1/questions/' + params.question.id, params).then(data => {
           resolve(data)
         })
       })
