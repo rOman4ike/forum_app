@@ -5,6 +5,10 @@ class Question < ApplicationRecord
   validates :content, presence: true
 
   paginates_per 2
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["title"]
+  end
 end
 
 # == Schema Information

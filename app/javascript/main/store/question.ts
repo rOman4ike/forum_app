@@ -3,6 +3,7 @@ import Vue from "vue"
 export const questionStore = {
   state: {
     question: {},
+    searchQuestions: [],
     questions: [],
     errors: [],
   },
@@ -12,6 +13,9 @@ export const questionStore = {
     },
     setQuestions(state, questions) {
       Vue.set(state, 'questions', questions)
+    },
+    setSearchQuestions(state, searchQuestions) {
+      Vue.set(state, 'searchQuestions', searchQuestions)
     },
     setErrors(state, errors) {
       Vue.set(state, 'errors', errors)
@@ -60,6 +64,14 @@ export const questionStore = {
     updateQuestion({ commit }, params) {
       return new Promise((resolve, reject) => {
         Vue.http.patch('/api/v1/questions/' + params.id, params).then(data => {
+          resolve(data)
+        })
+      })
+    },
+    searchQuestion({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        Vue.http.get('/api/v1/questions/search?q=' + params.q).then(data => {
+          commit('setSearchQuestions', data.body.questions)
           resolve(data)
         })
       })

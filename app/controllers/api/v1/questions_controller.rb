@@ -36,7 +36,8 @@ class Api::V1::QuestionsController < ApplicationController
   end
 
   def search
-
+    @q = Question.ransack(title_cont: params[:q])
+    @questions = @q.result(distinct: true)
   end
 
   private

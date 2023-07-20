@@ -13,19 +13,28 @@
             </router-link>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="position-relative mb-3">
           <input class="form-control"
             v-model="searchValue"
             @input="sendInputValue()"
             type="text"
             placeholder="Input question title"
           >
-          <div class="list-group collapse"
-            :class="{'d-block': searchValue}"
+          <div class="position-absolute w-100"
+            style="z-index: 1;"
+            v-if="searchQuestions.length && searchValue"
           >
-            <a class="list-group-item list-group-item-action">
-              Item
-            </a>
+            <div class="list-group"
+              :class="{'d-block': searchValue}"
+              v-for="question in searchQuestions"
+              :key="question.id"
+            >
+              <router-link class="list-group-item list-group-item-action"
+                :to="{ name: 'question_show', params: { id: question.id } }"
+              >
+                {{ question.title }}
+              </router-link>
+            </div>
           </div>
         </div>
 
@@ -73,7 +82,7 @@
           </li>
         </ul>
 
-        <nav>
+        <nav v-if="searchQuestions.length">
           <ul class="pagination justify-content-center">
             <li class="page-item"
               :class="{ 'disabled': route.query.page == 1 || !route.query.page }"
@@ -127,6 +136,7 @@ export default defineComponent({
     const questions = computed(() => store.state.question.questions)
     const questionAbilities = ref(store.state.ability.abilities.Question)
     const searchValue = ref('')
+    const searchQuestions = computed(() => store.state.question.searchQuestions)
     const route = useRoute()
     const { destroyRecord } = actions()
     const { checkAbilities } = abilities()
@@ -160,13 +170,15 @@ export default defineComponent({
     }
 
     function sendInputValue(): void {
-      console.log('uep');
+      const params = { q: searchValue.value }
+      store.dispatch('question/searchQuestion', params)
     }
 
     return {
       questions,
       questionAbilities,
       searchValue,
+      searchQuestions,
       route,
       destroyQuestion,
       changePage,

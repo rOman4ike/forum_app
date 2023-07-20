@@ -21,8 +21,6 @@ gem 'russian'
 gem 'whenever', require: false
 gem 'aasm'
 gem 'paranoia'
-gem 'sunspot_rails'
-gem 'sunspot_solr'
 gem 'jquery-rails'
 gem 'jwt'
 gem 'ransack'
