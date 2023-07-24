@@ -15,8 +15,8 @@
               Destroy
             </button>
             <router-link class="btn btn-info"
-              :to="{ name: 'user_edit', params: { id: user.id } }"
               v-if="userAbility.update"
+              :to="{ name: 'user_edit', params: { id: user.id } }"
             >
               Change
             </router-link>

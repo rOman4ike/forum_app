@@ -32,6 +32,11 @@
                 </router-link>
               </li>
               <li class="nav-item" v-if="isAuthorized">
+                <router-link class="nav-link" :to="{ name: 'name_show', params: { id: 1 } }">
+                  My profile
+                </router-link>
+              </li>
+              <li class="nav-item" v-if="isAuthorized">
                 <router-link class="nav-link link-primary"
                   :to="{ name: 'main' }"
                   @click.native="logout()"
@@ -70,11 +75,14 @@ export default defineComponent({
   setup() {
     const isAuthorized = computed(() => store.state.user.isAuthorized)
     const abilities = computed(() => store.state.ability.abilities)
+    const userId = computed(() => localStorage.getItem('user_id'))
 
     onBeforeMount(() => {
       if (localStorage.getItem('locale')) {
         i18n.locale = localStorage.getItem('locale')
       }
+      console.log(localStorage);
+
     })
 
     function changeLocale(locale) {

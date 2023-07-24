@@ -21,7 +21,9 @@
             <div class="btn-group">
               <button class="btn btn-dark"
                 v-if="userAbility.manage"
-              >Login as</button>
+              >
+                Login as
+              </button>
               <router-link class="btn btn-info"
                 v-if="userAbility.update"
                 :to="{ name: 'user_edit', params: { id: user.id } }"
@@ -31,7 +33,9 @@
               <button class="btn btn-danger"
                 v-if="userAbility.destroy"
                 @click="destroyUser(user.id, idx)"
-              >Destroy</button>
+              >
+                Destroy
+              </button>
             </div>
           </li>
         </ul>
