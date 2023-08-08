@@ -4,6 +4,7 @@ import { UserModel } from "main/types/user"
 export const userStore = {
   state: {
     user: {} as UserModel,
+    userSearch: [],
     users: [] as Array<UserModel>,
     errors: [],
     isAuthorized: false as Boolean
@@ -14,6 +15,9 @@ export const userStore = {
     },
     setUsers(state, users) {
       Vue.set(state, 'users', users)
+    },
+    setUserSearch(state, userSearch) {
+      Vue.set(state, 'userSearch', userSearch)
     },
     setErrors(state, errors) {
       Vue.set(state, 'errors', errors)
@@ -68,6 +72,14 @@ export const userStore = {
         })
       })
     },
+    searchUser({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        Vue.http.get(`/api/v1/users/search?q=` + params.q).then(data => {
+          commit('setUserSearch', data.body.users)
+          resolve(data)
+        })
+      })
+    },
     createSession({ }, params) {
       return new Promise((resolve, reject) => {
         Vue.http.post(`/api/v1/login`, params).then(data => {
@@ -81,6 +93,6 @@ export const userStore = {
           resolve(data)
         })
       })
-    }
+    },
   }
 }

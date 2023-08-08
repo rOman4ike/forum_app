@@ -8,7 +8,7 @@ class Question < ApplicationRecord
   paginates_per 2
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title"]
+    ['title']
   end
 end
 

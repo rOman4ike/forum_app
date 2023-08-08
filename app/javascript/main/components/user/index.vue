@@ -4,8 +4,12 @@
       <div class="users-list-inner">
 
         <h1 class="mb-3">{{ $t('users.index.title') }}</h1>
-        <div class="mb-3">
-          <input class="form-control" type="text" placeholder="Input user name">
+
+        <div class="position-relative mb-3">
+          <vue-search
+            :storeName="'user'"
+            :placeholderValue="'Input user name'"
+          />
         </div>
 
         <ul class="list-group mb-3">
@@ -57,11 +61,13 @@
 
 <script lang='ts'>
 import { computed, ref, defineComponent, onBeforeMount } from "vue"
+import VueSearch from 'common/components/VueSearch.vue'
 import store from 'main/store/base'
 import actions from 'main/mixins/actions'
 import abilities from 'main/mixins/abilities'
 
 export default defineComponent({
+  components: { VueSearch },
   setup() {
     const users = computed(() => store.state.user.users)
     const userAbility = ref(store.state.ability.abilities.User)

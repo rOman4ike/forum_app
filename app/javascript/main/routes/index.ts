@@ -21,7 +21,7 @@ const routes = [
   { path: '/signup', name: 'signup', component: Signup, meta: { title: 'Signup' } },
 
   // 404
-  { path: '/:pathMatch(.*)*', name: 'Error', component: ErrorPage },
+  // { path: '/:pathMatch(.*)*', name: 'Error', component: ErrorPage },
 
   // User
   { path: '/users/', name: 'user_index', component: UserIndex, meta: { title: 'User list' } },

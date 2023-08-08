@@ -41,6 +41,11 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def search
+    @q = User.ransack(name_cont: params[:q])
+    @users = @q.result(distinct: true)
+  end
+
   def user_activations
     @user = User.find_by_email(params[:email])
     if @user.activation_token == params[:activation_token] && @user.role == 'unconfirmed_user'

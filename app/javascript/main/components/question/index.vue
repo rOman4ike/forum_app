@@ -15,28 +15,10 @@
         </div>
 
         <div class="position-relative mb-3">
-          <input class="form-control"
-            v-model="searchValue"
-            @input="sendInputValue()"
-            type="text"
-            placeholder="Input question title"
-          >
-          <div class="position-absolute w-100"
-            style="z-index: 5;"
-            v-if="searchQuestions.length && searchValue"
-          >
-            <div class="list-group"
-              :class="{'d-block': searchValue}"
-              v-for="question in searchQuestions"
-              :key="question.id"
-            >
-              <router-link class="list-group-item list-group-item-action"
-                :to="{ name: 'question_show', params: { id: question.id } }"
-              >
-                {{ question.title }}
-              </router-link>
-            </div>
-          </div>
+          <vue-search
+            :storeName="'question'"
+            :placeholderValue="'Input question title'"
+          />
         </div>
 
         <div class="mb-3">
@@ -124,17 +106,17 @@
 <script lang="ts">
 import { computed, ref, defineComponent, onBeforeMount } from "vue"
 import { useRoute } from 'vue2-helpers/vue-router'
+import VueSearch from 'common/components/VueSearch.vue'
 import { router } from 'main/routes/index'
 import store from 'main/store/base'
 import actions from 'main/mixins/actions'
 import abilities from 'main/mixins/abilities'
 
 export default defineComponent({
+  components: { VueSearch },
   setup() {
     const questions = computed(() => store.state.question.questions)
     const questionAbilities = ref(store.state.ability.abilities.Question)
-    const searchValue = ref('')
-    const searchQuestions = computed(() => store.state.question.searchQuestions)
     const route = useRoute()
     const { destroyRecord } = actions()
     const { checkAbilities } = abilities()
@@ -167,24 +149,12 @@ export default defineComponent({
       }
     }
 
-    function sendInputValue(): void {
-      if (searchValue.value.length >= 3) {
-        const params = { q: searchValue.value }
-        store.dispatch('question/searchQuestion', params)
-      } else {
-        store.commit('question/setSearchQuestions', [])
-      }
-    }
-
     return {
       questions,
       questionAbilities,
-      searchValue,
-      searchQuestions,
       route,
       destroyQuestion,
       changePage,
-      sendInputValue
     }
   }
 })

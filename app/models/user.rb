@@ -24,6 +24,14 @@ class User < ApplicationRecord
       role.to_s == self.role
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["name"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["questions", "viewed_questions"]
+  end
 end
 
 # == Schema Information

@@ -3,7 +3,7 @@ import Vue from "vue"
 export const questionStore = {
   state: {
     question: {},
-    searchQuestions: [],
+    questionSearch: [],
     questions: [],
     errors: [],
   },
@@ -14,8 +14,8 @@ export const questionStore = {
     setQuestions(state, questions) {
       Vue.set(state, 'questions', questions)
     },
-    setSearchQuestions(state, searchQuestions) {
-      Vue.set(state, 'searchQuestions', searchQuestions)
+    setQuestionSearch(state, questionSearch) {
+      Vue.set(state, 'questionSearch', questionSearch)
     },
     setErrors(state, errors) {
       Vue.set(state, 'errors', errors)
@@ -71,7 +71,7 @@ export const questionStore = {
     searchQuestion({ commit }, params) {
       return new Promise((resolve, reject) => {
         Vue.http.get('/api/v1/questions/search?q=' + params.q).then(data => {
-          commit('setSearchQuestions', data.body.questions)
+          commit('setQuestionSearch', data.body.questions)
           resolve(data)
         })
       })

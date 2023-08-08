@@ -81,8 +81,6 @@ export default defineComponent({
       if (localStorage.getItem('locale')) {
         i18n.locale = localStorage.getItem('locale')
       }
-      console.log(localStorage);
-
     })
 
     function changeLocale(locale) {
