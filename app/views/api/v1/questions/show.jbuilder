@@ -6,5 +6,5 @@ json.viewed @question.viewed_questions.length
 
 json.user do
   json.name @question.user.name
-  json.user_id @question.user_id
+  json.id @question.user_id
 end

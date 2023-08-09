@@ -23,7 +23,11 @@
 
         <div class="card mb-3">
           <div class="card-header">
-            <span v-if="question.user">{{ $t('questions.show.card.created') }}: {{ question.user.name }}</span>
+            <span v-if="question.user">{{ $t('questions.show.card.created') }}:
+              <router-link :to="{ name: 'user_show', params: { id: question.user.id } }">
+                {{ question.user.name }}
+              </router-link>
+            </span>
             <span class="ms-3">{{ $t('questions.show.card.modified') }}: 0</span>
             <span class="ms-3">{{ $t('questions.show.card.rating') }}: 0</span>
             <span class="ms-3">{{ $t('questions.show.card.viewed') }}: {{ question.viewed }}</span>
@@ -62,6 +66,8 @@ export default defineComponent({
     const route = useRoute()
     const { destroyRecord } = actions()
     const { checkAbilities } = abilities()
+    console.log(question);
+
 
     onBeforeMount(() => {
       checkAbilities(questionAbility.value.read).then(data => {
