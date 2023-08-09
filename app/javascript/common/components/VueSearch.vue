@@ -23,10 +23,16 @@
         </div>
 
         <div class="list-group-item"
-          v-if='!searchList.length && searchValue.length >= 3'
+          v-if='!isLoading && !hasError && !searchList.length && searchValue.length >= 3'
         >
           Not found
         </div>
+        <div class="list-group-item"
+          v-else-if='isLoading && hasError && searchValue.length >= 3'
+        >
+          Error
+        </div>
+
       </div>
     </div>
 
@@ -50,13 +56,23 @@ export default defineComponent({
     const { storeName, placeholderValue } = toRefs(props)
     const storeNameCapitalize = storeName.value[0].toUpperCase() + storeName.value.slice(1)
     const searchValue = ref('')
+    const isLoading = ref(false)
+    const hasError = ref(false)
     const searchList = computed(() => store.state[storeName.value][`${storeName.value}Search`])
     const storeRoute = ref(`${storeName.value}/search${storeNameCapitalize}`)
 
     function sendInputValue(): void {
       if (searchValue.value.length >= 3) {
+        isLoading.value = true
         const params = { q: searchValue.value }
         store.dispatch(storeRoute.value, params)
+          .then(data => {
+            isLoading.value = false
+            hasError.value = false
+          })
+          .catch(err => {
+            hasError.value = true
+          })
       } else {
         store.commit(`${storeName.value}/set${storeNameCapitalize}Search`, [])
       }
@@ -72,6 +88,8 @@ export default defineComponent({
       storeName,
       placeholderValue,
       searchValue,
+      isLoading,
+      hasError,
       searchList,
       sendInputValue,
       outputItem

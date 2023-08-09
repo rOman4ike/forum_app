@@ -70,10 +70,14 @@ export const questionStore = {
     },
     searchQuestion({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.get('/api/v1/questions/search?q=' + params.q).then(data => {
-          commit('setQuestionSearch', data.body.questions)
-          resolve(data)
-        })
+        Vue.http.get('/api/v1/questions/search?q=' + params.q)
+          .then(data => {
+            commit('setQuestionSearch', data.body.questions)
+            resolve(data)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     }
   }

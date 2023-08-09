@@ -74,10 +74,14 @@ export const userStore = {
     },
     searchUser({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.get(`/api/v1/users/search?q=` + params.q).then(data => {
-          commit('setUserSearch', data.body.users)
-          resolve(data)
-        })
+        Vue.http.get(`/api/v1/users/search?q=` + params.q)
+          .then(data => {
+            commit('setUserSearch', data.body.users)
+            resolve(data)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
     createSession({ }, params) {
