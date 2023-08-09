@@ -82,6 +82,7 @@ export default defineComponent({
         if (data.ok) {
           store.dispatch('ability/setAbilities', data.data.abilities.models_abilities)
           localStorage.setItem('token', data.data.token)
+          localStorage.setItem('user_id', data.data.user_id)
           store.commit('user/setIsAuthorized', true)
           store.commit('notice/setNotice', {
             title: "Success",

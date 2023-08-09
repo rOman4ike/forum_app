@@ -32,7 +32,7 @@
                 </router-link>
               </li>
               <li class="nav-item" v-if="isAuthorized">
-                <router-link class="nav-link" :to="{ name: 'user_show', params: { id: 1 } }">
+                <router-link class="nav-link" :to="{ name: 'user_show', params: { id: userId } }">
                   {{ $t('header.nav.my_profile') }}
                 </router-link>
               </li>
@@ -92,6 +92,7 @@ export default defineComponent({
       store.dispatch('user/deleteSession').then(data => {
         if (data.ok) {
           localStorage.removeItem('token')
+          localStorage.removeItem('user_id')
           store.commit('user/setIsAuthorized', false)
           store.dispatch('ability/setAbilities', data.data.abilities.models_abilities)
         }
@@ -100,9 +101,10 @@ export default defineComponent({
 
     return {
       isAuthorized,
+      abilities,
+      userId,
       changeLocale,
       logout,
-      abilities
     }
   }
 })
