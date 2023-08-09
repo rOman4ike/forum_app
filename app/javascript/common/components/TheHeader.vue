@@ -32,7 +32,7 @@
                 </router-link>
               </li>
               <li class="nav-item" v-if="isAuthorized">
-                <router-link class="nav-link" :to="{ name: 'name_show', params: { id: 1 } }">
+                <router-link class="nav-link" :to="{ name: 'user_show', params: { id: 1 } }">
                   My profile
                 </router-link>
               </li>

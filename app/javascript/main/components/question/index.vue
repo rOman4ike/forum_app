@@ -64,39 +64,9 @@
           </li>
         </ul>
 
-        <nav>
-          <ul class="pagination justify-content-center">
-            <li class="page-item"
-              :class="{ 'disabled': route.query.page == 1 || !route.query.page }"
-            >
-              <a class="page-link"
-                @click="changePage(route.query.page - 1)"
-              >
-                Previous
-              </a>
-            </li>
-            <li class="page-item"
-              v-for="page in questions.total_pages"
-              :key='page'
-            >
-              <a class="page-link"
-                :class="{ 'active': page == questions.current_page }"
-                @click="changePage(page)"
-              >
-                {{ page }}
-              </a>
-            </li>
-            <li class="page-item"
-              :class="{ 'disabled': route.query.page == questions.total_pages}"
-            >
-              <a class="page-link"
-                @click="changePage(+route.query.page + 1 || 2)"
-              >
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <vue-pagination
+          :storeName="'question'"
+        ></vue-pagination>
 
       </div>
     </div>
@@ -106,14 +76,14 @@
 <script lang="ts">
 import { computed, ref, defineComponent, onBeforeMount } from "vue"
 import { useRoute } from 'vue2-helpers/vue-router'
-import VueSearch from 'common/components/VueSearch.vue'
-import { router } from 'main/routes/index'
+import VueSearch from 'common/components/VueSearch'
+import VuePagination from 'common/components/VuePagination'
 import store from 'main/store/base'
 import actions from 'main/mixins/actions'
 import abilities from 'main/mixins/abilities'
 
 export default defineComponent({
-  components: { VueSearch },
+  components: { VueSearch, VuePagination },
   setup() {
     const questions = computed(() => store.state.question.questions)
     const questionAbilities = ref(store.state.ability.abilities.Question)
@@ -123,9 +93,7 @@ export default defineComponent({
 
     onBeforeMount(() => {
       checkAbilities(questionAbilities.value.read).then(data => {
-        const params = {
-          page: route.query.page || 1
-        }
+        const params = { page: route.query.page || 1 }
         if (data) {
           store.dispatch('question/getQuestions', params)
         }
@@ -141,20 +109,10 @@ export default defineComponent({
       })
     }
 
-    function changePage(page): void {
-      if (page >= 1 && page <= questions.value.total_pages && page != route.query.page) {
-        const params = { page }
-        router.push({ name: 'question_index', query: { page } })
-        store.dispatch('question/getQuestions', params)
-      }
-    }
-
     return {
       questions,
       questionAbilities,
-      route,
       destroyQuestion,
-      changePage,
     }
   }
 })
