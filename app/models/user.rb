@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_secure_password
   has_secure_token :activation_token, length: 36
 
+  paginates_per 2
+
   def self.roles
     ROLES.map(&:to_s)
   end

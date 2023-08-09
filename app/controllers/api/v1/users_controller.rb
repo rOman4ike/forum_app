@@ -6,7 +6,7 @@ class Api::V1::UsersController < ApplicationController
   include AvailableAbilities
 
   def index
-    @users = User.all
+    @users = User.order(created_at: :desc).page(params[:page])
   end
 
   def show

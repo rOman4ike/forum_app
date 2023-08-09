@@ -14,7 +14,7 @@
 
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between align-items-center"
-            v-for="(user, idx) in users"
+            v-for="(user, idx) in users.users"
             :key="user.id"
           >
             <div>
@@ -44,15 +44,9 @@
           </li>
         </ul>
 
-        <nav>
-          <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-        </nav>
+        <vue-pagination
+          :storeName="'user'"
+        ></vue-pagination>
 
       </div>
     </div>
@@ -61,23 +55,27 @@
 
 <script lang='ts'>
 import { computed, ref, defineComponent, onBeforeMount } from "vue"
+import { useRoute } from 'vue2-helpers/vue-router'
 import VueSearch from 'common/components/VueSearch.vue'
+import VuePagination from "common/components/VuePagination"
 import store from 'main/store/base'
 import actions from 'main/mixins/actions'
 import abilities from 'main/mixins/abilities'
 
 export default defineComponent({
-  components: { VueSearch },
+  components: { VueSearch, VuePagination },
   setup() {
     const users = computed(() => store.state.user.users)
     const userAbility = ref(store.state.ability.abilities.User)
+    const route = useRoute()
     const { destroyRecord } = actions()
     const { checkAbilities } = abilities()
 
     onBeforeMount(() => {
       checkAbilities(userAbility.value.read).then(data => {
+        const params = { page: route.query.page || 1 }
         if (data) {
-          store.dispatch('user/getUsers')
+          store.dispatch('user/getUsers', params)
         }
       })
     })

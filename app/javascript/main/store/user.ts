@@ -34,9 +34,9 @@ export const userStore = {
         })
       })
     },
-    getUsers({ commit }) {
+    getUsers({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.http.get('/api/v1/users').then(data => {
+        Vue.http.get(`/api/v1/users?page=${params.page}`).then(data => {
           commit('setUsers', data.body)
           resolve(data)
         })
