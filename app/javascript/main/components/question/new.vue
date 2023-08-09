@@ -3,19 +3,19 @@
     <div class="container">
       <div class="question-new-inner">
 
-        <h1 class="mb-3">New question</h1>
+        <h1 class="mb-3">{{ $t('questions.new.title') }}</h1>
         <div class="card">
           <div class="card-body">
             <form @submit.prevent="sendQuestionForm()">
               <div class="mb-3">
-                <label for="title">Title</label>
+                <label for="title">{{ $t('questions.new.form.title') }}</label>
                 <input class="form-control"
                   v-model="question.title"
                   type="text"
                 >
               </div>
               <div class="mb-3">
-                <label for="title">Content</label>
+                <label for="title">{{ $t('questions.new.form.content') }}</label>
                 <input class="form-control"
                   v-model="question.content"
                   type="text"

@@ -8,7 +8,7 @@
           <a class="page-link"
             @click="changePage(route.query.page - 1)"
           >
-            Previous
+            {{ $t('pagination.previous') }}
           </a>
         </li>
         <li class="page-item"
@@ -28,7 +28,7 @@
           <a class="page-link"
             @click="changePage(+route.query.page + 1 || 2)"
           >
-            Next
+            {{ $t('pagination.next') }}
           </a>
         </li>
       </ul>
@@ -37,6 +37,7 @@
 </template>
 
 <script lang='ts'>
+// Сделать действия на keydown, keyup шоб можно было управлять с помощью стрелок и выбирать с помощью enter
 import { computed, defineComponent, toRefs } from 'vue'
 import { useRoute } from 'vue2-helpers/vue-router'
 import store from 'main/store/base'

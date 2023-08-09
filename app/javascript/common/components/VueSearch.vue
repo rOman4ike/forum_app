@@ -25,12 +25,12 @@
         <div class="list-group-item"
           v-if='!isLoading && !hasError && !searchList.length && searchValue.length >= 3'
         >
-          Not found
+          {{ $t('search.not_found') }}
         </div>
         <div class="list-group-item"
           v-else-if='isLoading && hasError && searchValue.length >= 3'
         >
-          Error
+          {{ $t('search.error') }}
         </div>
 
       </div>

@@ -10,6 +10,8 @@ const messages = {
         main: 'Главная',
         login: 'Войти',
         signup: 'Регистрация',
+        questions: 'Вопросы',
+        my_profile: 'Мой профиль',
         users_list: 'Список пользователей',
         logout: 'Выйти'
       }
@@ -36,7 +38,7 @@ const messages = {
     },
     users: {
       index: {
-        title: 'Список пользователей',
+        title: 'Список пользователей'
       },
       show: {
         title: 'Страница пользователя {name}',
@@ -44,17 +46,46 @@ const messages = {
           email: 'Почта',
           name: 'Имя',
           role: 'Роль',
-          created_at: 'Аккаунт создан',
+          created_at: 'Аккаунт создан'
         }
       },
       edit: {
         title: 'Редактирование пользователя',
         form: {
           email: 'Почта',
-          name: 'Имя',
+          name: 'Имя'
         }
       }
     },
+    questions: {
+      index: {
+        title: 'Список вопросов'
+      },
+      new: {
+        title: 'Новый вопрос',
+        form: {
+          title: 'Заголовок',
+          content: 'Контент'
+        }
+      },
+      show: {
+        comment: 'Комментарии',
+        card: {
+          created: 'Создал',
+          modified: 'Изменен',
+          rating: 'Рейтинг',
+          viewed: 'Просмотрело'
+        }
+      },
+      edit: {
+        title: 'Изменение вопроса',
+        form: {
+          title: 'Заголовок',
+          content: 'Контент'
+        }
+      }
+    },
+    // Component
     notification: {
       user: {
         destroy: {
@@ -70,6 +101,14 @@ const messages = {
           text: 'Пользователь успешно создан!'
         }
       }
+    },
+    pagination: {
+      previous: 'Назад',
+      next: 'Дальше'
+    },
+    search: {
+      error: 'Ошибка',
+      not_found: 'Не найдено'
     }
   },
   en: {
@@ -78,6 +117,8 @@ const messages = {
         main: 'Main',
         login: 'Login',
         signup: 'Signup',
+        questions: 'Questions',
+        my_profile: 'My profile',
         users_list: 'Users list',
         logout: 'Logout'
       }
@@ -123,6 +164,35 @@ const messages = {
         }
       }
     },
+    questions: {
+      index: {
+        title: 'Questions list'
+      },
+      new: {
+        title: 'New question',
+        form: {
+          title: 'Title',
+          content: 'Content'
+        }
+      },
+      show: {
+        comment: 'Comment',
+        card: {
+          created: 'Created',
+          modified: 'Modified',
+          rating: 'Rating',
+          viewed: 'Viewed',
+        }
+      },
+      edit: {
+        title: 'Edit question',
+        form: {
+          title: 'Title',
+          content: 'Content'
+        }
+      }
+    },
+    // Component
     notification: {
       user: {
         destroy: {
@@ -138,6 +208,14 @@ const messages = {
           text: 'User has been successfully created!'
         }
       }
+    },
+    pagination: {
+      previous: 'Previous',
+      next: 'Next',
+    },
+    search: {
+      error: 'Error',
+      not_found: 'Not found'
     }
   },
 }

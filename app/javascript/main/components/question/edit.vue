@@ -5,7 +5,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h1>
-            Edit question
+            {{ $t('questions.edit.title') }}
           </h1>
           <div class="btn-group">
             <button class="btn btn-danger" @click="destroyQuestion(question.id)">Destroy</button>
@@ -15,7 +15,7 @@
           <div class="card-body">
             <form @submit.prevent="sendEditForm()">
               <div class="mb-3">
-                <label for="title">Title</label>
+                <label for="title">{{ $t('questions.new.form.title') }}</label>
                 <input class="form-control"
                   v-model="question.title"
                   type="title"
@@ -23,7 +23,7 @@
                 >
               </div>
               <div class="mb-3">
-                <label for="content">Content</label>
+                <label for="content">{{ $t('questions.new.form.content') }}</label>
                 <input class="form-control"
                   v-model="question.content"
                   type="content"

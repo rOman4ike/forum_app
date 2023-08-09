@@ -4,7 +4,7 @@
       <div class="question-index-inner">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h1>Questions list <span class="badge bg-secondary">New</span> <span class='badge bg-danger'>Related</span></h1>
+          <h1>{{ $t('questions.index.title') }} <span class="badge bg-secondary">New</span> <span class='badge bg-danger'>Related</span></h1>
           <div class="btn-group">
             <router-link :to="{ name: 'question_new' }"
               v-if="questionAbilities.create"

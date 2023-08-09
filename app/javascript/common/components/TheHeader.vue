@@ -28,12 +28,12 @@
               </li>
               <li class="nav-item" v-if="abilities.Question.read">
                 <router-link class="nav-link" :to="{ name: 'question_index' }">
-                  Questions
+                  {{ $t('header.nav.questions') }}
                 </router-link>
               </li>
               <li class="nav-item" v-if="isAuthorized">
                 <router-link class="nav-link" :to="{ name: 'user_show', params: { id: 1 } }">
-                  My profile
+                  {{ $t('header.nav.my_profile') }}
                 </router-link>
               </li>
               <li class="nav-item" v-if="isAuthorized">

@@ -23,10 +23,10 @@
 
         <div class="card mb-3">
           <div class="card-header">
-            <span v-if="question.user">Created: {{ question.user.name }}</span>
-            <span class="ms-3">Modified: 0</span>
-            <span class="ms-3">Rating: 0</span>
-            <span class="ms-3">Viewed: {{ question.viewed }}</span>
+            <span v-if="question.user">{{ $t('questions.show.card.created') }}: {{ question.user.name }}</span>
+            <span class="ms-3">{{ $t('questions.show.card.modified') }}: 0</span>
+            <span class="ms-3">{{ $t('questions.show.card.rating') }}: 0</span>
+            <span class="ms-3">{{ $t('questions.show.card.viewed') }}: {{ question.viewed }}</span>
           </div>
           <div class="card-body">
             <p>
@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <h2>Comment</h2>
+        <h2>{{ $t('questions.show.comment') }}</h2>
         <div class="card">
           <div class="card-body">
             <p>Lorem, ipsum.</p>
