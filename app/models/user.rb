@@ -7,8 +7,8 @@ class User < ApplicationRecord
     admin
   )
 
-  has_many :questions
-  has_many :viewed_questions
+  has_many :questions, dependent: :destroy
+  has_many :viewed_questions, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
 

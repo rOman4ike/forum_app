@@ -32,9 +32,11 @@
                 </router-link>
               </li>
               <li class="nav-item" v-if="isAuthorized">
-                <router-link class="nav-link" :to="{ name: 'user_show', params: { id: userId } }">
+                <a class="nav-link"
+                  @click="redirectToMyProfile()"
+                >
                   {{ $t('header.nav.my_profile') }}
-                </router-link>
+                </a>
               </li>
               <li class="nav-item" v-if="isAuthorized">
                 <router-link class="nav-link link-primary"
@@ -75,7 +77,6 @@ export default defineComponent({
   setup() {
     const isAuthorized = computed(() => store.state.user.isAuthorized)
     const abilities = computed(() => store.state.ability.abilities)
-    const userId = computed(() => localStorage.getItem('user_id'))
 
     onBeforeMount(() => {
       if (localStorage.getItem('locale')) {
@@ -86,6 +87,13 @@ export default defineComponent({
     function changeLocale(locale) {
       localStorage.setItem('locale', locale)
       i18n.locale = locale
+    }
+
+    function redirectToMyProfile() {
+      // catch - временное решение, надо потом придумать что-то другое (выскакивает ошибка если повторно нажимать на my profile когда ты уже находишься в нем)
+      router
+        .push({ name: 'user_show', params: { id: localStorage.getItem('user_id') } })
+        .catch(err => {})
     }
 
     function logout() {
@@ -102,8 +110,8 @@ export default defineComponent({
     return {
       isAuthorized,
       abilities,
-      userId,
       changeLocale,
+      redirectToMyProfile,
       logout,
     }
   }

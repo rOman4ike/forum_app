@@ -83,8 +83,9 @@ export default defineComponent({
     function destroyUser(id: number | string, idx: number): void {
       const params = { id }
       destroyRecord('user/destroyUser', params).then(data => {
-        if (data.ok) {
-          users.value.splice(idx, 1)
+        const params = { page: route.query.page || 1 }
+        if (data) {
+          store.dispatch('user/getUsers', params)
         }
       })
     }

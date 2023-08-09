@@ -1,3 +1,4 @@
+# Добавить потом абилки для всех search-маршрутов
 # frozen_string_literal: true
 
 class Ability

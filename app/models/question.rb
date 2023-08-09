@@ -1,6 +1,6 @@
 class Question < ApplicationRecord
   belongs_to :user
-  has_many :viewed_questions
+  has_many :viewed_questions, dependent: :destroy
 
   validates :title, presence: true
   validates :content, presence: true

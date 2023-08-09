@@ -1,7 +1,7 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authentication, except: [:create, :user_activations]
-  load_resource except: [:create, :user_activations]
-  authorize_resource except: [:create, :user_activations]
+  before_action :authentication, except: [:create, :user_activations, :search]
+  load_resource except: [:create, :user_activations, :search]
+  authorize_resource except: [:create, :user_activations, :search]
 
   include AvailableAbilities
 

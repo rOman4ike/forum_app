@@ -103,8 +103,9 @@ export default defineComponent({
     function destroyQuestion(id: number | string, idx: number) {
       const params = { id }
       destroyRecord('question/destroyQuestion', params).then(data => {
+        const params = { page: route.query.page || 1 }
         if (data.ok) {
-          questions.value.splice(idx, 1)
+          store.dispatch('question/getQuestions', params)
         }
       })
     }

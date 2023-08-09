@@ -6,6 +6,11 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h1>{{ question.title }}</h1>
           <div class="btn-group">
+            <router-link class="btn btn-warning"
+              :to="{ name: 'main' }"
+            >
+              Report
+            </router-link>
             <button class="btn btn-danger"
               v-if="questionAbility.destroy"
               @click="destroyQuestion(question.id)"
