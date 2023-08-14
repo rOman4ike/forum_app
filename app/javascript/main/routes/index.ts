@@ -6,7 +6,7 @@ import ErrorPage from "common/components/error.vue"
 
 // User
 import UserIndex from "main/components/user/index.vue"
-import UserShow from "main/components/user/show.vue"
+import UserShow from "main/components/user/show/show.vue"
 import UserEdit from "main/components/user/edit.vue"
 
 // Qusetion
@@ -29,7 +29,7 @@ const routes = [
   { path: '/users/:id/edit/', name: 'user_edit', component: UserEdit, meta: { title: 'User edit' } },
 
   // Question
-  { path: '/questions/', name: 'question_index', component: QuestionIndex, meta: { title: 'Question list' }, query: { page: 1 } },
+  { path: '/questions/', name: 'question_index', component: QuestionIndex, meta: { title: 'Question list' } },
   { path: '/questions/new/', name: 'question_new', component: QuestionNew, meta: { title: 'Question new' } },
   { path: '/questions/:id/', name: 'question_show', component: QuestionShow, meta: { title: 'Question show' } },
   { path: '/questions/:id/edit/', name: 'question_edit', component: QuestionEdit, meta: { title: 'Question edit' } },

@@ -6,10 +6,11 @@ Rails.application.routes.draw do
 
       resources :users do
         collection do
-          # get :search
           get :user_activations # поправить на activate
           get :search
           post :send_messages
+          # get :viewed_questions
+          get ':id/viewed_questions' => 'users#viewed_questions', as: :viewed_questions
         end
       end
 

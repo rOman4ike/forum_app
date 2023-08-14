@@ -21,6 +21,24 @@
           />
         </div>
 
+        <div class="tags-list mb-2">
+          <span class="badge rounded-pill text-bg-primary">JS (Это типа поиск по тэгам)</span>
+          <span class="badge rounded-pill text-bg-secondary">PHP</span>
+          <span class="badge rounded-pill text-bg-success">CoffeeScript</span>
+          <span class="badge rounded-pill text-bg-danger">Ruby</span>
+          <span class="badge rounded-pill text-bg-warning">Ruby on Rails</span>
+          <span class="badge rounded-pill text-bg-info">Haskell</span>
+          <span class="badge rounded-pill text-bg-light">Pascal</span>
+          <span class="badge rounded-pill text-bg-dark">Python</span>
+          <span class="badge rounded-pill text-bg-secondary">PHP</span>
+          <span class="badge rounded-pill text-bg-success">CoffeeScript</span>
+          <span class="badge rounded-pill text-bg-danger">Ruby</span>
+          <span class="badge rounded-pill text-bg-warning">Ruby on Rails</span>
+          <span class="badge rounded-pill text-bg-info">Haskell</span>
+          <span class="badge rounded-pill text-bg-light">Pascal</span>
+          <span class="badge rounded-pill text-bg-dark">Python</span>
+        </div>
+
         <div class="mb-3">
           <div class="form-check form-check-inline mb-3">
             <input class="form-check-input"

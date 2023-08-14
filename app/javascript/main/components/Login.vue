@@ -68,7 +68,6 @@ export default defineComponent({
       }}
       store.dispatch('user/createSession', params).then(data => {
         if (data.ok) {
-          console.log(data);
           store.dispatch('ability/setAbilities', data.data.abilities.models_abilities)
           localStorage.setItem('token', data.data.token)
           localStorage.setItem('user_id', data.data.user_id)

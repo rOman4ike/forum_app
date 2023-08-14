@@ -63,6 +63,11 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def viewed_questions
+    @user = User.find(params[:id])
+    @viewed_questions = @user.viewed_questions
+  end
+
   private
 
   def user_params

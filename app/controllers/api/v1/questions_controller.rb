@@ -35,8 +35,8 @@ class Api::V1::QuestionsController < ApplicationController
   end
 
   def update
-    @question = Question.find(question_edit_update[:id])
-    unless @question.update(question_edit_update)
+    @question = Question.find(question_update_params[:id])
+    unless @question.update(question_update_params)
       render status: 422
     end
   end
@@ -52,7 +52,7 @@ class Api::V1::QuestionsController < ApplicationController
     params.require(:question).permit(:user_id, :title, :content)
   end
 
-  def question_edit_update
+  def question_update_params
     params.require(:question).permit(:id, :title, :content)
   end
 end

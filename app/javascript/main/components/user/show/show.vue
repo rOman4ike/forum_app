@@ -30,24 +30,23 @@
 
         <div class="card mb-3">
           <div class="card-header">
-            <a href="#">User info</a>
-            <a class="ms-3" href="#">Viewed questions</a>
-            <a class="ms-3" href="#">Subscribed questions</a>
-            <a class="ms-3" href="#">Subscriptions</a>
+            <a class="link"
+              :class="{ 'link-success': activeComponent == 'UserInfo' }"
+              @click.prevent="activeComponent = 'UserInfo'"
+            >
+              User info
+            </a>
+            <a class="link ms-3"
+              :class="{ 'link-success': activeComponent == 'ViewedQuestions' }"
+              @click.prevent="activeComponent = 'ViewedQuestions'"
+            >
+              Viewed questions
+            </a>
+            <a class="link ms-3" href="#">Subscribed questions</a>
+            <a class="link ms-3" href="#">Subscriptions</a>
           </div>
           <div class="card-body">
-            <p>
-              <strong>{{ $t('users.show.info.email') }}:</strong> {{ user.email }}
-            </p>
-            <p>
-              <strong>{{ $t('users.show.info.name') }}:</strong> {{ user.name }}
-            </p>
-            <p>
-              <strong>{{ $t('users.show.info.role') }}:</strong> {{ user.role }}
-            </p>
-            <p>
-              <strong>{{ $t('users.show.info.created_at') }}</strong> {{ user.created_at }}
-            </p>
+            <component :is="activeComponent"/>
           </div>
         </div>
 
@@ -85,11 +84,18 @@ import { router } from 'main/routes/index'
 import store from 'main/store/base'
 import actions from 'main/mixins/actions'
 import abilities from 'main/mixins/abilities'
+import UserInfo from './UserInfo.vue'
+import ViewedQuestions from './ViewedQuestions.vue'
 
 export default defineComponent({
+  components: {
+    UserInfo,
+    ViewedQuestions
+  },
   setup() {
     const user = computed(() => store.state.user.user )
     const userAbility = ref(store.state.ability.abilities.User)
+    const activeComponent = ref('UserInfo')
     const route = useRoute()
     const { destroyRecord } = actions()
     const { checkAbilities } = abilities()
@@ -99,6 +105,7 @@ export default defineComponent({
         if (data) {
           const params = { id: route.params.id }
           store.dispatch('user/getUser', params)
+          store.dispatch('viewedQuestion/getViewedQuestions', params)
         }
       })
     })
@@ -116,6 +123,7 @@ export default defineComponent({
       user,
       destroyUser,
       userAbility,
+      activeComponent,
     }
   }
 })

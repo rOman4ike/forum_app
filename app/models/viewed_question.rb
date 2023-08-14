@@ -1,6 +1,8 @@
 class ViewedQuestion < ApplicationRecord
   belongs_to :user
   belongs_to :question
+
+  delegate :title, to: :question
 end
 
 # == Schema Information
