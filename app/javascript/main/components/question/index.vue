@@ -66,6 +66,16 @@
               {{ question.title }}
             </router-link>
             <div class="btn-group">
+              <router-link class="btn btn-secondary"
+                :to="{ name: 'main' }"
+              >
+                Subscribe
+              </router-link>
+              <router-link class="btn btn-warning"
+                :to="{ name: 'main' }"
+              >
+                Report
+              </router-link>
               <router-link class="btn btn-info"
                 v-if="questionAbilities.update"
                 :to="{ name: 'question_edit', params: { id: question.id } }"

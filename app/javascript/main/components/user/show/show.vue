@@ -8,10 +8,15 @@
             {{ $t('users.show.title', { name: user.name }) }}
           </h1>
           <div class="btn-group">
-            <router-link class="btn btn-warning"
+            <router-link class="btn btn-primary"
               :to="{ name: 'main' }"
             >
               Subscribe
+            </router-link>
+            <router-link class="btn btn-warning"
+              :to="{ name: 'main' }"
+            >
+              Report
             </router-link>
             <button class="btn btn-danger"
               v-if="userAbility.destroy"

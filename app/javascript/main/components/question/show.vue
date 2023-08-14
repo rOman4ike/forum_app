@@ -6,6 +6,11 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h1>{{ question.title }}</h1>
           <div class="btn-group">
+            <router-link class="btn btn-secondary"
+              :to="{ name: 'main' }"
+            >
+              Subscribe
+            </router-link>
             <router-link class="btn btn-warning"
               :to="{ name: 'main' }"
             >
